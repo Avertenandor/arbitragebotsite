@@ -1,0 +1,6 @@
+# Игнорировать все файлы кроме нужных
+*
+!PLEX_AutoSell.py
+!README.md
+!requirements.txt
+!.gitignore
