@@ -1,6 +1,5 @@
 'use client';
 
-import Header from '@/components/layout/Header';
 import TransactionWindow from '@/components/features/TransactionMonitor/TransactionWindow';
 import { motion } from 'framer-motion';
 
