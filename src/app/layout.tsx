@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import AnimatedBackground from '@/components/effects/AnimatedBackground';
-import CustomCursor from '@/components/effects/CustomCursor';
+// import CustomCursor from '@/components/effects/CustomCursor'; // Отключен - мешает работе
 import PageTransition from '@/components/effects/PageTransition';
 
 const inter = Inter({ 
@@ -62,8 +62,8 @@ export default function RootLayout({
         {/* Animated Background */}
         <AnimatedBackground />
         
-        {/* Custom Cursor */}
-        <CustomCursor />
+        {/* Custom Cursor - ОТКЛЮЧЕН (мешает работе) */}
+        {/* <CustomCursor /> */}
         
         {/* Header - добавлен */}
         <Header />
