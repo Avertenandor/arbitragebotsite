@@ -1,0 +1,74 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient Definitions -->
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9D4EDD;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00FFA3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00D9FF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer Circle -->
+  <circle cx="100" cy="100" r="90" stroke="url(#logoGradient)" stroke-width="4" fill="none" opacity="0.3"/>
+  
+  <!-- Inner Hexagon -->
+  <path d="M100,30 L155,62.5 L155,127.5 L100,160 L45,127.5 L45,62.5 Z" 
+        stroke="url(#logoGradient)" 
+        stroke-width="3" 
+        fill="none"/>
+  
+  <!-- Center Arrow Layers (representing arbitrage flow) -->
+  <!-- Layer 1 - Bottom -->
+  <path d="M70,110 L100,90 L130,110" 
+        stroke="url(#accentGradient)" 
+        stroke-width="6" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        fill="none"
+        opacity="0.4"/>
+  
+  <!-- Layer 2 - Middle -->
+  <path d="M70,100 L100,80 L130,100" 
+        stroke="url(#logoGradient)" 
+        stroke-width="6" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        fill="none"
+        opacity="0.7"/>
+  
+  <!-- Layer 3 - Top -->
+  <path d="M70,90 L100,70 L130,90" 
+        stroke="#00D9FF" 
+        stroke-width="6" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        fill="none"/>
+  
+  <!-- Circular arrows (representing continuous arbitrage) -->
+  <path d="M160,100 A60,60 0 0,1 100,160" 
+        stroke="url(#logoGradient)" 
+        stroke-width="2" 
+        fill="none" 
+        opacity="0.5"
+        stroke-dasharray="5,5">
+    <animate attributeName="stroke-dashoffset" from="0" to="10" dur="1s" repeatCount="indefinite"/>
+  </path>
+  
+  <path d="M40,100 A60,60 0 0,0 100,40" 
+        stroke="url(#logoGradient)" 
+        stroke-width="2" 
+        fill="none" 
+        opacity="0.5"
+        stroke-dasharray="5,5">
+    <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Accent dots -->
+  <circle cx="100" cy="60" r="4" fill="#00FFA3"/>
+  <circle cx="100" cy="140" r="4" fill="#00FFA3"/>
+  <circle cx="60" cy="100" r="4" fill="#9D4EDD"/>
+  <circle cx="140" cy="100" r="4" fill="#9D4EDD"/>
+</svg>
