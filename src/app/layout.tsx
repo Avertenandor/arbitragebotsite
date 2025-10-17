@@ -26,20 +26,61 @@ export const metadata: Metadata = {
     'BNB Chain'
   ],
   authors: [{ name: 'ArbitroBot Team' }],
+  metadataBase: new URL('https://arbitrage-bot.com'),
+  
+  // Open Graph (Facebook, Discord, Telegram)
   openGraph: {
     title: 'ArbitroBot - DEX Арбитражный Робот',
-    description: 'Мониторинг арбитражных транзакций в реальном времени',
-    type: 'website',
+    description: 'Мониторинг арбитражных транзакций в реальном времени на BNB Chain. Автоматический арбитраж между DEX 24/7.',
+    url: 'https://arbitrage-bot.com',
+    siteName: 'ArbitroBot',
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'ArbitroBot - DEX Арбитражный Робот',
+      },
+    ],
     locale: 'ru_RU',
+    type: 'website',
   },
+  
+  // Twitter
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ArbitroBot - DEX Арбитражный Робот',
+    description: 'Мониторинг арбитражных транзакций в реальном времени на BNB Chain',
+    images: ['/opengraph-image'],
+    creator: '@ArbitroBot',
+  },
+  
+  // Icons
+  icons: {
+    icon: [
+      { url: '/icon', type: 'image/png', sizes: '32x32' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/apple-icon', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  
+  // Manifest для PWA
+  manifest: '/manifest.json',
+  
   robots: {
     index: true,
     follow: true,
     googleBot: {
       index: true,
       follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
     },
   },
+  
   verification: {
     google: 'google-site-verification-code',
     yandex: 'yandex-verification-code',
