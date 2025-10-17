@@ -1,5 +1,7 @@
 'use client';
 
+import UserShowcase from '@/components/features/UserShowcase/UserShowcase';
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#0A0A0F] text-white">
@@ -33,6 +35,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* User Showcase Section */}
+      <UserShowcase />
     </div>
   );
 }
