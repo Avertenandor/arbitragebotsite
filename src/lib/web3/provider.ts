@@ -175,9 +175,8 @@ export async function disconnectWallet(): Promise<void> {
   
   // Clear local storage
   if (typeof window !== 'undefined') {
-    Object.values(STORAGE_KEYS).forEach((key) => {
-      localStorage.removeItem(key);
-    });
+    localStorage.removeItem('walletAddress');
+    localStorage.removeItem('walletConnected');
   }
 }
 

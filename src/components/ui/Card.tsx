@@ -1,13 +1,15 @@
 'use client';
 
-import { motion, HTMLMotionProps } from 'framer-motion';
-import { HTMLAttributes, forwardRef, ReactNode } from 'react';
+import { motion } from 'framer-motion';
+import { forwardRef, ReactNode, MouseEvent } from 'react';
 import { clsx } from 'clsx';
 
-interface CardProps extends HTMLAttributes<HTMLDivElement> {
+interface CardProps {
   variant?: 'default' | 'glass' | 'gradient';
   hoverable?: boolean;
   children: ReactNode;
+  className?: string;
+  onClick?: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
 const Card = forwardRef<HTMLDivElement, CardProps>(
@@ -17,7 +19,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       variant = 'default',
       hoverable = true,
       className,
-      ...props
+      onClick,
     },
     ref
   ) => {
@@ -35,29 +37,37 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       ? 'hover:border-[var(--border-color-hover)] hover:shadow-glow-primary cursor-pointer'
       : '';
 
-    const MotionDiv = hoverable ? motion.div : 'div';
-
-    const motionProps = hoverable
-      ? {
-          whileHover: { scale: 1.02, y: -4 },
-          whileTap: { scale: 0.98 },
-        }
-      : {};
+    if (hoverable) {
+      return (
+        <motion.div
+          ref={ref}
+          onClick={onClick}
+          whileHover={{ scale: 1.02, y: -4 }}
+          whileTap={{ scale: 0.98 }}
+          className={clsx(
+            baseStyles,
+            variants[variant],
+            hoverStyles,
+            className
+          )}
+        >
+          {children}
+        </motion.div>
+      );
+    }
 
     return (
-      <MotionDiv
+      <div
         ref={ref}
+        onClick={onClick}
         className={clsx(
           baseStyles,
           variants[variant],
-          hoverStyles,
           className
         )}
-        {...(hoverable ? motionProps : {})}
-        {...props}
       >
         {children}
-      </MotionDiv>
+      </div>
     );
   }
 );

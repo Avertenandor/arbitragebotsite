@@ -1,13 +1,18 @@
 'use client';
 
-import { motion, HTMLMotionProps } from 'framer-motion';
-import { ButtonHTMLAttributes, forwardRef } from 'react';
+import { motion } from 'framer-motion';
+import { forwardRef, ReactNode, MouseEvent } from 'react';
 import { clsx } from 'clsx';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps {
+  children: ReactNode;
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
+  disabled?: boolean;
+  className?: string;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -19,7 +24,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       isLoading = false,
       disabled,
       className,
-      ...props
+      type = 'button',
+      onClick,
     },
     ref
   ) => {
@@ -46,6 +52,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <motion.button
         ref={ref}
+        type={type}
+        onClick={onClick}
         whileHover={{ scale: disabled || isLoading ? 1 : 1.05 }}
         whileTap={{ scale: disabled || isLoading ? 1 : 0.95 }}
         className={clsx(
@@ -55,7 +63,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           className
         )}
         disabled={disabled || isLoading}
-        {...props}
       >
         {isLoading ? (
           <>
