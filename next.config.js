@@ -3,37 +3,18 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   
+  // Для GitHub Pages
+  output: 'export',
+  basePath: '',
+  trailingSlash: true,
+  
   images: {
-    domains: ['arbitrobot.com'],
-    formats: ['image/avif', 'image/webp'],
+    unoptimized: true, // Необходимо для статического экспорта
   },
 
   // Оптимизация
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
-  },
-
-  // Headers для безопасности
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
-        ],
-      },
-    ];
   },
 };
 
