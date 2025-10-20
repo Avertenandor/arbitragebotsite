@@ -1,6 +1,7 @@
 'use client';
 
 import UserShowcase from '@/components/features/UserShowcase/UserShowcase';
+import PlexWidget from '@/components/features/PlexWidget/PlexWidget';
 
 export default function Home() {
   return (
@@ -38,6 +39,9 @@ export default function Home() {
 
       {/* User Showcase Section */}
       <UserShowcase />
+
+      {/* PLEX Token Widget */}
+      <PlexWidget />
     </div>
   );
 }
