@@ -19,38 +19,38 @@ const ECOSYSTEM_SITES: EcosystemSite[] = [
     color: '#00D9FF'
   },
   {
-    name: 'Card Processing',
+    name: 'PLEX ONE Marathon',
     url: 'https://card-processing.net/',
-    description: 'Обработка платежей и карточные транзакции',
-    icon: '💳',
+    description: 'Криптомарафон на 730 дней с токеном PLEX ONE',
+    icon: '🏃',
     color: '#9D4EDD'
   },
   {
-    name: 'Data PLEX',
+    name: 'PLEX ONE DynSteaking',
     url: 'https://data-plex.net/',
-    description: 'Аналитика и данные токена PLEX',
-    icon: '📊',
+    description: 'Платформа стейкинга для пассивного дохода',
+    icon: '💰',
     color: '#00FFA3'
   },
   {
-    name: 'Digital PLEX',
+    name: 'GENESIS 1',
     url: 'https://digitalplex.net/',
-    description: 'Цифровая платформа управления активами',
-    icon: '💎',
+    description: 'Блокчейн платформа управления депозитами и наградами',
+    icon: '⚡',
     color: '#FFB800'
   },
   {
-    name: 'GetToken',
+    name: 'Печать монет',
     url: 'https://gettoken.nl/',
-    description: 'Платформа для получения и обмена токенов',
+    description: 'DEFI 5-го поколения - создание токенов без сервера',
     icon: '🪙',
     color: '#FF4D6A'
   },
   {
-    name: 'Bank P2P Processing',
+    name: 'Best Trade',
     url: 'https://bankp2pprocessing.com/',
-    description: 'P2P банковские операции и обработка',
-    icon: '🏦',
+    description: 'DEX платформа с MEV ботами и арбитражными стратегиями',
+    icon: '📈',
     color: '#00D9FF'
   }
 ];
