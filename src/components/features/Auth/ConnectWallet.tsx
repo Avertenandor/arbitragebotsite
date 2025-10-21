@@ -38,7 +38,7 @@ export default function ConnectWallet() {
       {/* Информационное модальное окно */}
       <AnimatePresence>
         {showModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 sm:p-6">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -50,10 +50,11 @@ export default function ConnectWallet() {
 
             {/* Modal content */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative glass rounded-2xl p-8 w-full max-w-lg"
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 100 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative glass rounded-t-2xl sm:rounded-2xl p-6 sm:p-8 w-full max-w-lg mb-0 sm:mb-auto"
             >
               {/* Close button */}
               <button
