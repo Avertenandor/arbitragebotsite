@@ -68,12 +68,14 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             <div className="flex justify-end p-4">
               <button
                 onClick={onClose}
-                className="p-2 rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors"
+                className="p-3 rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors touch-manipulation active:scale-95"
+                style={{ minWidth: '44px', minHeight: '44px' }}
                 aria-label="Закрыть меню"
+                type="button"
               >
                 <svg
-                  width="24"
-                  height="24"
+                  width="28"
+                  height="28"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"

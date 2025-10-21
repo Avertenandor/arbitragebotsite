@@ -132,12 +132,14 @@ export default function Header() {
               {/* Hamburger Button (mobile only) */}
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="md:hidden p-2 rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors"
+                className="md:hidden p-3 rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors touch-manipulation active:scale-95 relative z-10"
+                style={{ minWidth: '44px', minHeight: '44px' }}
                 aria-label="Открыть меню"
+                type="button"
               >
                 <svg
-                  width="24"
-                  height="24"
+                  width="28"
+                  height="28"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
