@@ -81,13 +81,36 @@ const STEPS: Step[] = [
   }
 ];
 
+// Бот зарабатывает 72% В ДЕНЬ (верхняя планка коридора 30-72%)
+// Депозит $1,000 → бот зарабатывает $720/день
+// Пользователь получает свою долю от $720
 const WEEKS: Week[] = [
-  { number: 1, percent: '0.5%', profit: '$18', description: 'Знакомство с системой' },
-  { number: 2, percent: '2%', profit: '$70', description: 'Видите как работает' },
-  { number: 3, percent: '4%', profit: '$140', description: 'Доход растёт' },
-  { number: 4, percent: '12%', profit: '$420', description: 'Значительный рост' },
-  { number: 5, percent: '20%', profit: '$700', description: 'Почти на максимуме' },
-  { number: 6, percent: '30%+', profit: '$1,050+', description: 'Полный доступ!' }
+  { number: 1, percent: '0.5%', profit: '$25', description: 'Знакомство с системой' },
+  { number: 2, percent: '2%', profit: '$101', description: 'Видите как работает' },
+  { number: 3, percent: '4%', profit: '$202', description: 'Доход растёт' },
+  { number: 4, percent: '12%', profit: '$605', description: 'Значительный рост' },
+  { number: 5, percent: '16%', profit: '$806', description: 'Ещё +4%' },
+  { number: 6, percent: '20%', profit: '$1,008', description: 'Ещё +4%' },
+  { number: 7, percent: '24%', profit: '$1,210', description: 'Ещё +4%' },
+  { number: 8, percent: '28%', profit: '$1,411', description: 'Ещё +4%' },
+  { number: 9, percent: '32%', profit: '$1,613', description: 'Ещё +4%' },
+  { number: 10, percent: '36%', profit: '$1,814', description: 'Ещё +4%' },
+  { number: 11, percent: '40%', profit: '$2,016', description: 'Ещё +4%' },
+  { number: 12, percent: '44%', profit: '$2,218', description: 'Ещё +4%' },
+  { number: 13, percent: '48%', profit: '$2,419', description: 'Ещё +4%' },
+  { number: 14, percent: '52%', profit: '$2,621', description: 'Ещё +4%' },
+  { number: 15, percent: '56%', profit: '$2,822', description: 'Ещё +4%' },
+  { number: 16, percent: '60%', profit: '$3,024', description: 'Ещё +4%' },
+  { number: 17, percent: '64%', profit: '$3,226', description: 'Ещё +4%' },
+  { number: 18, percent: '68%', profit: '$3,427', description: 'Ещё +4%' },
+  { number: 19, percent: '72%', profit: '$3,629', description: 'Ещё +4%' },
+  { number: 20, percent: '76%', profit: '$3,830', description: 'Ещё +4%' },
+  { number: 21, percent: '80%', profit: '$4,032', description: 'Ещё +4%' },
+  { number: 22, percent: '84%', profit: '$4,234', description: 'Ещё +4%' },
+  { number: 23, percent: '88%', profit: '$4,435', description: 'Ещё +4%' },
+  { number: 24, percent: '92%', profit: '$4,637', description: 'Ещё +4%' },
+  { number: 25, percent: '96%', profit: '$4,838', description: 'Почти 100%!' },
+  { number: 26, percent: '100%', profit: '$5,040', description: '🎯 ПОЛНЫЙ ДОСТУП!' }
 ];
 
 export default function HowItWorksSection() {
@@ -95,10 +118,19 @@ export default function HowItWorksSection() {
   const [depositAmount, setDepositAmount] = useState<number>(1000);
 
   const calculateProfit = (week: number) => {
-    const percentages = [0.5, 2, 4, 12, 20, 30];
-    const percent = percentages[Math.min(week - 1, 5)] / 100;
-    const dailyBotProfit = depositAmount * 0.5; // бот зарабатывает ~50% в день (среднее)
-    const yourProfit = dailyBotProfit * percent;
+    // Схема роста:
+    // Неделя 1: 0.5%, Неделя 2: 2%, Неделя 3: 4%, Неделя 4: 12%
+    // Неделя 5+: каждую неделю +4% до 100% (достигается на неделе 26)
+    let userPercent = 0;
+    if (week === 1) userPercent = 0.5;
+    else if (week === 2) userPercent = 2;
+    else if (week === 3) userPercent = 4;
+    else if (week === 4) userPercent = 12;
+    else if (week <= 26) userPercent = 12 + (week - 4) * 4; // +4% каждую неделю после 4-й
+    else userPercent = 100; // после недели 26 = полный доступ
+    
+    const dailyBotProfit = depositAmount * 0.72; // бот зарабатывает 72% в день (верхняя планка)
+    const yourProfit = dailyBotProfit * (userPercent / 100);
     const weeklyProfit = yourProfit * 7;
     return weeklyProfit.toFixed(0);
   };
@@ -228,8 +260,8 @@ export default function HowItWorksSection() {
               </div>
               <div className="bg-[#00FFA3]/10 p-6 rounded-xl border border-[#00FFA3]/30 text-center">
                 <div className="text-4xl mb-3">📅</div>
-                <div className="text-[#00FFA3] font-bold text-lg mb-2">6 недель</div>
-                <div className="text-gray-400 text-sm">До полного доступа</div>
+                <div className="text-[#00FFA3] font-bold text-lg mb-2">26 недель</div>
+                <div className="text-gray-400 text-sm">До 100% доступа</div>
               </div>
               <div className="bg-[#9D4EDD]/10 p-6 rounded-xl border border-[#9D4EDD]/30 text-center">
                 <div className="text-4xl mb-3">🔓</div>
@@ -256,46 +288,53 @@ export default function HowItWorksSection() {
               <h3 className="text-2xl font-bold text-white mb-6 text-center">
                 📈 График роста вашей доли
               </h3>
-              <p className="text-gray-400 text-center mb-8">
+              <p className="text-gray-400 text-center mb-4">
                 Пример: вы внесли <span className="text-[#00FFA3] font-bold">$1,000</span> депозит. 
-                Бот зарабатывает в среднем <span className="text-[#00D9FF] font-bold">50% в день</span> = $500/день
+                Бот зарабатывает <span className="text-[#00D9FF] font-bold">72% в день</span> (верхняя планка коридора 30-72%) = $720/день
+              </p>
+              <p className="text-[#FFB800] font-bold text-center mb-8">
+                ⚡ Каждую неделю после 4-й +4% до достижения 100%
               </p>
 
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {WEEKS.map((week, index) => {
-                  const width = Math.min((week.number / 6) * 100, 100);
+                  const width = Math.min((week.number / 26) * 100, 100);
                   return (
                     <motion.div
                       key={week.number}
                       initial={{ opacity: 0, x: -50 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      transition={{ duration: 0.5, delay: index * 0.05 }}
                       className="relative"
                     >
-                      <div className="flex items-center gap-4 mb-2">
-                        <div className="w-24 text-right">
-                          <span className="text-white font-bold">Неделя {week.number}</span>
+                      <div className="flex items-center gap-3 mb-1">
+                        <div className="w-20 text-right shrink-0">
+                          <span className="text-white font-bold text-sm">Нед. {week.number}</span>
                         </div>
-                        <div className="flex-1 bg-[#13131A] rounded-full h-12 overflow-hidden border border-[#00D9FF]/20">
+                        <div className="flex-1 bg-[#13131A] rounded-full h-10 overflow-hidden border border-[#00D9FF]/20 relative">
                           <motion.div
                             initial={{ width: 0 }}
                             whileInView={{ width: `${width}%` }}
                             viewport={{ once: true }}
-                            transition={{ duration: 1, delay: index * 0.1 }}
-                            className="h-full bg-gradient-to-r from-[#00D9FF] to-[#00FFA3] flex items-center justify-center"
-                          >
-                            <span className="text-[#0A0A0F] font-bold text-sm sm:text-base">
+                            transition={{ duration: 1, delay: index * 0.05 }}
+                            className="h-full bg-gradient-to-r from-[#00D9FF] to-[#00FFA3]"
+                          />
+                          {/* Текст ВСЕГДА видим, не зависит от ширины бара */}
+                          <div className="absolute inset-0 flex items-center justify-start pl-4">
+                            <span className={`font-bold text-xs whitespace-nowrap ${
+                              width > 15 ? 'text-[#0A0A0F]' : 'text-white'
+                            }`}>
                               {week.percent} в день
                             </span>
-                          </motion.div>
+                          </div>
                         </div>
-                        <div className="w-32 text-left">
-                          <div className="text-[#00FFA3] font-bold text-lg">{week.profit}</div>
-                          <div className="text-gray-500 text-xs">за неделю</div>
+                        <div className="w-28 text-left shrink-0">
+                          <div className="text-[#00FFA3] font-bold text-sm">{week.profit}</div>
+                          <div className="text-gray-500 text-[10px]">за неделю</div>
                         </div>
                       </div>
-                      <div className="ml-28 text-gray-400 text-sm">{week.description}</div>
+                      <div className="ml-24 text-gray-400 text-xs">{week.description}</div>
                     </motion.div>
                   );
                 })}
@@ -304,13 +343,13 @@ export default function HowItWorksSection() {
               <div className="mt-8 p-6 bg-gradient-to-r from-[#00D9FF]/10 to-[#00FFA3]/10 rounded-xl border border-[#00D9FF]/30">
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-3xl">🎯</span>
-                  <h4 className="text-xl font-bold text-white">После 6 недель:</h4>
+                  <h4 className="text-xl font-bold text-white">После 26 недель (100%):</h4>
                 </div>
                 <p className="text-gray-300 text-base leading-relaxed">
-                  Вы достигаете <span className="text-[#00FFA3] font-bold">полного доступа</span> и получаете 
-                  <span className="text-[#00D9FF] font-bold"> 100% от дневного профита</span> бота. 
-                  Это значит $500/день (на депозите $1,000) = 
-                  <span className="text-[#FFB800] font-bold"> ~$15,000 в месяц!</span>
+                  Вы достигаете <span className="text-[#00FFA3] font-bold">полного доступа (100%)</span> и получаете 
+                  <span className="text-[#00D9FF] font-bold"> весь дневной профит</span> бота. 
+                  Это значит <span className="text-[#FFB800] font-bold">$720/день</span> (на депозите $1,000) = 
+                  <span className="text-[#FFB800] font-bold"> ~$21,600 в месяц!</span>
                 </p>
               </div>
             </div>
