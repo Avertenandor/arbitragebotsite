@@ -1,0 +1,137 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A0A0F;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#13131A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1C1C24;stop-opacity:1" />
+    </linearGradient>
+    
+    <radialGradient id="glow1" cx="83%" cy="16%" r="40%">
+      <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#00D9FF;stop-opacity:0" />
+    </radialGradient>
+    
+    <radialGradient id="glow2" cx="17%" cy="84%" r="40%">
+      <stop offset="0%" style="stop-color:#9D4EDD;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#9D4EDD;stop-opacity:0" />
+    </radialGradient>
+    
+    <linearGradient id="titleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00FFA3;stop-opacity:1" />
+    </linearGradient>
+    
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background fill -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Glow effects -->
+  <rect width="1200" height="630" fill="url(#glow1)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+  
+  <!-- Grid pattern -->
+  <g opacity="0.03" stroke="#00D9FF" stroke-width="1">
+    <line x1="0" y1="0" x2="0" y2="630" />
+    <line x1="50" y1="0" x2="50" y2="630" />
+    <line x1="100" y1="0" x2="100" y2="630" />
+    <line x1="150" y1="0" x2="150" y2="630" />
+    <line x1="200" y1="0" x2="200" y2="630" />
+    <line x1="250" y1="0" x2="250" y2="630" />
+    <line x1="300" y1="0" x2="300" y2="630" />
+    <line x1="350" y1="0" x2="350" y2="630" />
+    <line x1="400" y1="0" x2="400" y2="630" />
+    <line x1="450" y1="0" x2="450" y2="630" />
+    <line x1="500" y1="0" x2="500" y2="630" />
+    <line x1="550" y1="0" x2="550" y2="630" />
+    <line x1="600" y1="0" x2="600" y2="630" />
+    <line x1="650" y1="0" x2="650" y2="630" />
+    <line x1="700" y1="0" x2="700" y2="630" />
+    <line x1="750" y1="0" x2="750" y2="630" />
+    <line x1="800" y1="0" x2="800" y2="630" />
+    <line x1="850" y1="0" x2="850" y2="630" />
+    <line x1="900" y1="0" x2="900" y2="630" />
+    <line x1="950" y1="0" x2="950" y2="630" />
+    <line x1="1000" y1="0" x2="1000" y2="630" />
+    <line x1="1050" y1="0" x2="1050" y2="630" />
+    <line x1="1100" y1="0" x2="1100" y2="630" />
+    <line x1="1150" y1="0" x2="1150" y2="630" />
+    <line x1="0" y1="0" x2="1200" y2="0" />
+    <line x1="0" y1="50" x2="1200" y2="50" />
+    <line x1="0" y1="100" x2="1200" y2="100" />
+    <line x1="0" y1="150" x2="1200" y2="150" />
+    <line x1="0" y1="200" x2="1200" y2="200" />
+    <line x1="0" y1="250" x2="1200" y2="250" />
+    <line x1="0" y1="300" x2="1200" y2="300" />
+    <line x1="0" y1="350" x2="1200" y2="350" />
+    <line x1="0" y1="400" x2="1200" y2="400" />
+    <line x1="0" y1="450" x2="1200" y2="450" />
+    <line x1="0" y1="500" x2="1200" y2="500" />
+    <line x1="0" y1="550" x2="1200" y2="550" />
+    <line x1="0" y1="600" x2="1200" y2="600" />
+  </g>
+  
+  <!-- Logo circle background -->
+  <circle cx="150" cy="150" r="80" fill="rgba(0, 217, 255, 0.1)" filter="url(#glow)"/>
+  
+  <!-- Logo icon -->
+  <text x="150" y="170" font-family="Arial, sans-serif" font-size="80" fill="#00D9FF" text-anchor="middle" font-weight="bold">🤖</text>
+  
+  <!-- Main title -->
+  <text x="250" y="150" font-family="Arial, sans-serif" font-size="72" fill="url(#titleGradient)" font-weight="bold">ArbitroBot</text>
+  
+  <!-- Subtitle -->
+  <text x="250" y="200" font-family="Arial, sans-serif" font-size="32" fill="#9D4EDD" font-weight="600">DEX Арбитражный Робот</text>
+  
+  <!-- Description -->
+  <text x="80" y="280" font-family="Arial, sans-serif" font-size="28" fill="rgba(255, 255, 255, 0.8)">Мониторинг арбитражных транзакций в реальном времени</text>
+  
+  <!-- Stats Box 1: Доход -->
+  <g>
+    <rect x="80" y="350" width="340" height="180" fill="none" stroke="#00FFA3" stroke-width="3" rx="10"/>
+    <rect x="83" y="353" width="334" height="174" fill="rgba(28, 28, 36, 0.8)" rx="8"/>
+    <text x="250" y="410" font-family="Arial, sans-serif" font-size="48" fill="#00FFA3" text-anchor="middle">📈</text>
+    <text x="250" y="465" font-family="Arial, sans-serif" font-size="42" fill="white" text-anchor="middle" font-weight="bold">30-72%</text>
+    <text x="250" y="500" font-family="Arial, sans-serif" font-size="20" fill="rgba(255, 255, 255, 0.7)" text-anchor="middle">Доход в день</text>
+  </g>
+  
+  <!-- Stats Box 2: 24/7 -->
+  <g>
+    <rect x="440" y="350" width="340" height="180" fill="none" stroke="#00D9FF" stroke-width="3" rx="10"/>
+    <rect x="443" y="353" width="334" height="174" fill="rgba(28, 28, 36, 0.8)" rx="8"/>
+    <text x="610" y="410" font-family="Arial, sans-serif" font-size="48" fill="#00D9FF" text-anchor="middle">⚡</text>
+    <text x="610" y="465" font-family="Arial, sans-serif" font-size="42" fill="white" text-anchor="middle" font-weight="bold">24/7</text>
+    <text x="610" y="500" font-family="Arial, sans-serif" font-size="20" fill="rgba(255, 255, 255, 0.7)" text-anchor="middle">Автоматически</text>
+  </g>
+  
+  <!-- Stats Box 3: BSC -->
+  <g>
+    <rect x="800" y="350" width="340" height="180" fill="none" stroke="#FFB800" stroke-width="3" rx="10"/>
+    <rect x="803" y="353" width="334" height="174" fill="rgba(28, 28, 36, 0.8)" rx="8"/>
+    <text x="970" y="410" font-family="Arial, sans-serif" font-size="48" fill="#FFB800" text-anchor="middle">🔗</text>
+    <text x="970" y="465" font-family="Arial, sans-serif" font-size="42" fill="white" text-anchor="middle" font-weight="bold">BSC</text>
+    <text x="970" y="500" font-family="Arial, sans-serif" font-size="20" fill="rgba(255, 255, 255, 0.7)" text-anchor="middle">BNB Smart Chain</text>
+  </g>
+  
+  <!-- Bottom badge -->
+  <rect x="400" y="560" width="400" height="50" fill="rgba(0, 217, 255, 0.1)" rx="25"/>
+  <text x="600" y="593" font-family="Arial, sans-serif" font-size="24" fill="#00D9FF" text-anchor="middle" font-weight="bold">🚀 arbitrage-bot.com</text>
+  
+  <!-- Decorative arrow -->
+  <g stroke="#00FFA3" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="1050,450 1100,400 1150,450"/>
+  </g>
+  
+  <!-- Decorative chart -->
+  <polyline points="1000,500 1020,480 1040,490 1060,460 1080,470 1100,440 1120,450 1140,420" 
+    stroke="rgba(0, 217, 255, 0.3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+

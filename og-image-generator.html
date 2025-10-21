@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArbitroBot OG Image Generator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        .instructions {
+            color: white;
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            max-width: 1200px;
+        }
+        
+        .instructions h2 {
+            color: #00D9FF;
+            margin-top: 0;
+        }
+        
+        .instructions code {
+            background: #1a1a1a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #00FFA3;
+        }
+        
+        #og-canvas {
+            border: 2px solid #00D9FF;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.3);
+        }
+        
+        .download-btn {
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #00D9FF, #00FFA3);
+            color: #0A0A0F;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .download-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions">
+        <h2>📸 Генератор Open Graph изображения для ArbitroBot</h2>
+        <p><strong>Инструкция:</strong></p>
+        <ol>
+            <li>Ниже отображается превью размером <code>1200x630px</code></li>
+            <li>Нажмите кнопку "Скачать PNG" чтобы сохранить изображение</li>
+            <li>Переименуйте файл в <code>opengraph-image.png</code></li>
+            <li>Замените файл в папке <code>public/</code></li>
+        </ol>
+        <p><strong>Или сделайте скриншот:</strong> Откройте инструменты разработчика (F12), найдите canvas, правый клик → "Capture node screenshot"</p>
+    </div>
+
+    <canvas id="og-canvas" width="1200" height="630"></canvas>
+    
+    <button class="download-btn" onclick="downloadImage()">⬇️ Скачать PNG</button>
+
+    <script>
+        const canvas = document.getElementById('og-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function drawOGImage() {
+            // Background gradient
+            const bgGradient = ctx.createLinearGradient(0, 0, 1200, 630);
+            bgGradient.addColorStop(0, '#0A0A0F');
+            bgGradient.addColorStop(0.5, '#13131A');
+            bgGradient.addColorStop(1, '#1C1C24');
+            ctx.fillStyle = bgGradient;
+            ctx.fillRect(0, 0, 1200, 630);
+
+            // Accent circles (decorative)
+            ctx.globalAlpha = 0.1;
+            
+            // Top right glow
+            const glowGradient1 = ctx.createRadialGradient(1000, 100, 0, 1000, 100, 400);
+            glowGradient1.addColorStop(0, '#00D9FF');
+            glowGradient1.addColorStop(1, 'transparent');
+            ctx.fillStyle = glowGradient1;
+            ctx.fillRect(0, 0, 1200, 630);
+            
+            // Bottom left glow
+            const glowGradient2 = ctx.createRadialGradient(200, 530, 0, 200, 530, 400);
+            glowGradient2.addColorStop(0, '#9D4EDD');
+            glowGradient2.addColorStop(1, 'transparent');
+            ctx.fillStyle = glowGradient2;
+            ctx.fillRect(0, 0, 1200, 630);
+            
+            ctx.globalAlpha = 1;
+
+            // Grid pattern (subtle)
+            ctx.strokeStyle = 'rgba(0, 217, 255, 0.05)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < 1200; i += 50) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, 630);
+                ctx.stroke();
+            }
+            for (let i = 0; i < 630; i += 50) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(1200, i);
+                ctx.stroke();
+            }
+
+            // Logo circle background
+            ctx.fillStyle = 'rgba(0, 217, 255, 0.1)';
+            ctx.beginPath();
+            ctx.arc(150, 150, 80, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Logo icon (robot emoji style)
+            ctx.font = 'bold 80px Arial';
+            ctx.fillStyle = '#00D9FF';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🤖', 150, 150);
+
+            // Main title
+            ctx.font = 'bold 72px Arial';
+            const titleGradient = ctx.createLinearGradient(250, 120, 900, 120);
+            titleGradient.addColorStop(0, '#00D9FF');
+            titleGradient.addColorStop(1, '#00FFA3');
+            ctx.fillStyle = titleGradient;
+            ctx.textAlign = 'left';
+            ctx.fillText('ArbitroBot', 250, 130);
+
+            // Subtitle
+            ctx.font = '32px Arial';
+            ctx.fillStyle = '#9D4EDD';
+            ctx.fillText('DEX Арбитражный Робот', 250, 190);
+
+            // Description
+            ctx.font = '28px Arial';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.fillText('Мониторинг арбитражных транзакций в реальном времени', 80, 280);
+
+            // Stats boxes
+            const stats = [
+                { value: '30-72%', label: 'Доход в день', color: '#00FFA3', icon: '📈' },
+                { value: '24/7', label: 'Автоматически', color: '#00D9FF', icon: '⚡' },
+                { value: 'BSC', label: 'BNB Smart Chain', color: '#FFB800', icon: '🔗' }
+            ];
+
+            let startX = 80;
+            stats.forEach((stat, index) => {
+                const boxWidth = 340;
+                const boxHeight = 180;
+                const x = startX + (index * (boxWidth + 20));
+                const y = 350;
+
+                // Box background with gradient border
+                ctx.strokeStyle = stat.color;
+                ctx.lineWidth = 3;
+                ctx.strokeRect(x, y, boxWidth, boxHeight);
+                
+                // Box background
+                ctx.fillStyle = 'rgba(28, 28, 36, 0.8)';
+                ctx.fillRect(x + 3, y + 3, boxWidth - 6, boxHeight - 6);
+
+                // Icon
+                ctx.font = '48px Arial';
+                ctx.fillStyle = stat.color;
+                ctx.textAlign = 'center';
+                ctx.fillText(stat.icon, x + boxWidth / 2, y + 60);
+
+                // Value
+                ctx.font = 'bold 42px Arial';
+                ctx.fillStyle = 'white';
+                ctx.fillText(stat.value, x + boxWidth / 2, y + 115);
+
+                // Label
+                ctx.font = '20px Arial';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.fillText(stat.label, x + boxWidth / 2, y + 150);
+            });
+
+            // Bottom badge
+            ctx.fillStyle = 'rgba(0, 217, 255, 0.1)';
+            roundRect(ctx, 400, 560, 400, 50, 25);
+            ctx.fill();
+            
+            ctx.font = 'bold 24px Arial';
+            ctx.fillStyle = '#00D9FF';
+            ctx.textAlign = 'center';
+            ctx.fillText('🚀 arbitrage-bot.com', 600, 590);
+
+            // Decorative elements
+            // Arrow up (profit)
+            ctx.strokeStyle = '#00FFA3';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(1050, 450);
+            ctx.lineTo(1100, 400);
+            ctx.lineTo(1150, 450);
+            ctx.stroke();
+            
+            // Chart lines (decorative)
+            ctx.strokeStyle = 'rgba(0, 217, 255, 0.3)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(1000, 500);
+            ctx.lineTo(1020, 480);
+            ctx.lineTo(1040, 490);
+            ctx.lineTo(1060, 460);
+            ctx.lineTo(1080, 470);
+            ctx.lineTo(1100, 440);
+            ctx.lineTo(1120, 450);
+            ctx.lineTo(1140, 420);
+            ctx.stroke();
+        }
+
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function downloadImage() {
+            const link = document.createElement('a');
+            link.download = 'opengraph-image.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Draw on load
+        drawOGImage();
+    </script>
+</body>
+</html>
+
