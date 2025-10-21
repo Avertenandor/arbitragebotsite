@@ -28,18 +28,19 @@ export const metadata: Metadata = {
   authors: [{ name: 'ArbitroBot Team' }],
   metadataBase: new URL('https://arbitrage-bot.com'),
   
-  // Open Graph (Facebook, Discord, Telegram)
+  // Open Graph (Facebook, Discord, Telegram, VK)
   openGraph: {
-    title: 'ArbitroBot - DEX Арбитражный Робот',
-    description: 'Мониторинг арбитражных транзакций в реальном времени на BNB Chain. Автоматический арбитраж между DEX 24/7.',
+    title: 'ArbitroBot - DEX Арбитражный Робот | 30-72% в день',
+    description: 'Автоматический арбитраж на BNB Chain 24/7. Мониторинг транзакций в реальном времени. Прозрачность и надёжность.',
     url: 'https://arbitrage-bot.com',
     siteName: 'ArbitroBot',
     images: [
       {
-        url: '/logo.svg',
+        url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'ArbitroBot - DEX Арбитражный Робот',
+        alt: 'ArbitroBot - DEX Арбитражный Робот. Доход 30-72% в день. Работает 24/7 на BSC',
+        type: 'image/png',
       },
     ],
     locale: 'ru_RU',
@@ -50,8 +51,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'ArbitroBot - DEX Арбитражный Робот',
-    description: 'Мониторинг арбитражных транзакций в реальном времени на BNB Chain',
-    images: ['/logo.svg'],
+    description: '🤖 Автоматический арбитраж 24/7 | 📈 30-72% в день | 🔗 BSC Network',
+    images: ['/opengraph-image.png'],
     creator: '@ArbitroBot',
   },
   

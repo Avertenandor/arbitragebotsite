@@ -82,12 +82,12 @@ const STEPS: Step[] = [
 ];
 
 const WEEKS: Week[] = [
-  { number: 1, percent: '0.5%', profit: '$25', description: 'Знакомство с системой' },
-  { number: 2, percent: '2%', profit: '$100', description: 'Видите как работает' },
-  { number: 3, percent: '4%', profit: '$200', description: 'Доход растёт' },
-  { number: 4, percent: '12%', profit: '$600', description: 'Значительный рост' },
-  { number: 5, percent: '20%', profit: '$1,000', description: 'Почти на максимуме' },
-  { number: 6, percent: '30%+', profit: '$1,500+', description: 'Полный доступ!' }
+  { number: 1, percent: '0.5%', profit: '$18', description: 'Знакомство с системой' },
+  { number: 2, percent: '2%', profit: '$70', description: 'Видите как работает' },
+  { number: 3, percent: '4%', profit: '$140', description: 'Доход растёт' },
+  { number: 4, percent: '12%', profit: '$420', description: 'Значительный рост' },
+  { number: 5, percent: '20%', profit: '$700', description: 'Почти на максимуме' },
+  { number: 6, percent: '30%+', profit: '$1,050+', description: 'Полный доступ!' }
 ];
 
 export default function HowItWorksSection() {
