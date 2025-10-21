@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     siteName: 'ArbitroBot',
     images: [
       {
-        url: '/opengraph-image.png',
+        url: 'https://arbitrage-bot.com/opengraph-image.png',
         width: 1200,
         height: 630,
         alt: 'ArbitroBot - DEX Арбитражный Робот. Доход 30-72% в день. Работает 24/7 на BSC',
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'ArbitroBot - DEX Арбитражный Робот',
     description: '🤖 Автоматический арбитраж 24/7 | 📈 30-72% в день | 🔗 BSC Network',
-    images: ['/opengraph-image.png'],
+    images: ['https://arbitrage-bot.com/opengraph-image.png'],
     creator: '@ArbitroBot',
   },
   
