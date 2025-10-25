@@ -86,7 +86,18 @@ export default function Header() {
               >
                 Мониторинг
               </Link>
-              
+
+              <Link
+                href="/bot"
+                className={`text-sm font-medium transition-colors ${
+                  isActive('/bot')
+                    ? 'text-[var(--primary)]'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--primary)]'
+                }`}
+              >
+                🤖 Bot Panel
+              </Link>
+
               {isAuthenticated && (
                 <Link
                   href="/dashboard"
@@ -99,7 +110,7 @@ export default function Header() {
                   Личный кабинет
                 </Link>
               )}
-              
+
               <Link
                 href="/about"
                 className={`text-sm font-medium transition-colors ${
