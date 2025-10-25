@@ -34,6 +34,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
   const navItems = [
     { href: '/', label: 'Мониторинг', icon: '📊' },
+    { href: '/bot', label: 'Bot Panel', icon: '🤖' },
     ...(isAuthenticated
       ? [{ href: '/dashboard', label: 'Личный кабинет', icon: '👤' }]
       : []
