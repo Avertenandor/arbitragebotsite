@@ -211,19 +211,19 @@ export function useWallet(): UseWalletReturn {
    * Setup event listeners
    */
   useEffect(() => {
-    if (typeof window === 'undefined' || !window.ethereum) {
-      return;
-    }
-
-    window.ethereum.on('accountsChanged', handleAccountsChanged);
-    window.ethereum.on('chainChanged', handleChainChanged);
+    // Задержка для предотвращения ошибок гидратации
+    const timer = setTimeout(() => {
+      if (typeof window === 'undefined' || !window.ethereum) {
+        return;
+      }
+      window.ethereum.on('accountsChanged', handleAccountsChanged);
+      window.ethereum.on('chainChanged', handleChainChanged);
+    }, 100);
 
     return () => {
-      if (window.ethereum) {
-        window.ethereum.removeListener(
-          'accountsChanged',
-          handleAccountsChanged
-        );
+      clearTimeout(timer);
+      if (typeof window !== 'undefined' && window.ethereum) {
+        window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
         window.ethereum.removeListener('chainChanged', handleChainChanged);
       }
     };
