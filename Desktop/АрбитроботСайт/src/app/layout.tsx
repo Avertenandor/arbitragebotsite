@@ -1,14 +1,8 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import AnimatedBackground from '@/components/effects/AnimatedBackground';
 import PageTransition from '@/components/effects/PageTransition';
-
-const inter = Inter({ 
-  subsets: ['latin', 'cyrillic'],
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   title: 'ArbitroBot - DEX Арбитражный Робот | Мониторинг Транзакций',
@@ -58,8 +52,11 @@ export const metadata: Metadata = {
   // Icons
   icons: {
     icon: [
+      { url: '/favicon.ico', sizes: 'any' },
       { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/logo.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
     ],
   },
   
@@ -90,18 +87,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
-      <body className={inter.className}>
+    <html lang="ru" suppressHydrationWarning>
+      <body className="font-sans" suppressHydrationWarning>
         {/* Animated Background */}
         <AnimatedBackground />
-        
+
         {/* Header */}
         <Header />
-        
+
         {/* Main Content with padding for fixed header */}
         <main className="pt-20">
           <PageTransition>
