@@ -310,7 +310,7 @@ export default function WhitelistTab() {
                       {token.reason}
                     </td>
                     <td className="px-4 py-3 text-sm font-mono text-[var(--text-tertiary)]">
-                      {token.fmtNumber(lastCheckBlock)}
+                      {fmtNumber(token.lastCheckBlock)}
                     </td>
                     <td className="px-4 py-3 text-sm">
                       <span

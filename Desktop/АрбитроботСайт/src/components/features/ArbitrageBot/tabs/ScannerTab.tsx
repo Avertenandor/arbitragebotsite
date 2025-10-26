@@ -106,10 +106,10 @@ export default function ScannerTab() {
       return {
         scannedBlocks: totalBlocks,
         checkedTokens: totalTokens,
-        scanSpeed: (Math.random() * 1.5 + 2.5).toFixed(2) as any,
+        scanSpeed: parseFloat((Math.random() * 1.5 + 2.5).toFixed(2)),
         whitelistAdded: totalWhitelist,
         blacklistAdded: totalBlacklist,
-        checksPerBlock: totalBlocks > 0 ? (totalChecks / totalBlocks).toFixed(1) as any : 0,
+        checksPerBlock: totalBlocks > 0 ? parseFloat((totalChecks / totalBlocks).toFixed(1)) : 0,
         trashRate: totalChecks > 0 ? Math.round((totalBlacklist / totalChecks) * 100) : 0,
       };
     });
@@ -244,13 +244,13 @@ export default function ScannerTab() {
         <MetricCard
           icon="📦"
           title="Отсканировано блоков"
-          value={metrics.fmtNumber(scannedBlocks)}
+          value={fmtNumber(metrics.scannedBlocks)}
           color="info"
         />
         <MetricCard
           icon="🔍"
           title="Проверено токенов"
-          value={metrics.fmtNumber(checkedTokens)}
+          value={fmtNumber(metrics.checkedTokens)}
           color="primary"
         />
         <MetricCard
@@ -264,13 +264,13 @@ export default function ScannerTab() {
         <MetricCard
           icon="✅"
           title="Whitelist добавлено"
-          value={metrics.fmtNumber(whitelistAdded)}
+          value={fmtNumber(metrics.whitelistAdded)}
           color="success"
         />
         <MetricCard
           icon="🚫"
           title="Blacklist добавлено"
-          value={metrics.fmtNumber(blacklistAdded)}
+          value={fmtNumber(metrics.blacklistAdded)}
           color="danger"
         />
         <MetricCard
@@ -408,7 +408,7 @@ export default function ScannerTab() {
                     }`}
                   >
                     <td className="px-6 py-4 text-sm text-[var(--text-primary)] font-mono">
-                      {check.fmtNumber(blockNumber)}
+                      {fmtNumber(check.blockNumber)}
                     </td>
                     <td className="px-6 py-4 text-sm">
                       <a

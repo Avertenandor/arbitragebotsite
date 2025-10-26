@@ -126,7 +126,7 @@ export default function DecisionsTab() {
   });
 
   // Процент успеха
-  const successRate = ((stats.go / stats.total) * 100).toFixed(1);
+  const successRate = fmtNumber((stats.go / stats.total) * 100, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
   return (
     <div className="space-y-4">
@@ -151,19 +151,19 @@ export default function DecisionsTab() {
         <MetricCard
           icon="📊"
           title="Total Decisions"
-          value={stats.fmtNumber(total)}
+          value={fmtNumber(stats.total)}
           color="info"
         />
         <MetricCard
           icon="✅"
           title="GO Decisions"
-          value={stats.fmtNumber(go)}
+          value={fmtNumber(stats.go)}
           color="success"
         />
         <MetricCard
           icon="❌"
           title="NO_GO Decisions"
-          value={stats.fmtNumber(noGo)}
+          value={fmtNumber(stats.noGo)}
           color="danger"
         />
       </motion.div>
@@ -200,13 +200,13 @@ export default function DecisionsTab() {
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-[var(--success)]" />
             <span className="text-[var(--text-secondary)]">
-              GO: {stats.fmtNumber(go)} ({((stats.go / stats.total) * 100).toFixed(1)}%)
+              GO: {fmtNumber(stats.go)} ({fmtNumber((stats.go / stats.total) * 100, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%)
             </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-[var(--danger)]" />
             <span className="text-[var(--text-secondary)]">
-              NO_GO: {stats.fmtNumber(noGo)} ({((stats.noGo / stats.total) * 100).toFixed(1)}%)
+              NO_GO: {fmtNumber(stats.noGo)} ({fmtNumber((stats.noGo / stats.total) * 100, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%)
             </span>
           </div>
         </div>
@@ -349,14 +349,14 @@ export default function DecisionsTab() {
                   <td className="px-6 py-4 text-sm">
                     {decision.profitEst > 0 ? (
                       <span className="text-[var(--success)] font-bold">
-                        +${decision.fmtNumber(profitEst, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        +${fmtNumber(decision.profitEst, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </span>
                     ) : (
                       <span className="text-[var(--text-muted)]">—</span>
                     )}
                   </td>
                   <td className="px-6 py-4 text-sm text-[var(--text-secondary)] font-mono">
-                    {decision.gasEst > 0 ? decision.fmtNumber(gasEst, { minimumFractionDigits: 4, maximumFractionDigits: 4 }) : '—'}
+                    {decision.gasEst > 0 ? fmtNumber(decision.gasEst, { minimumFractionDigits: 4, maximumFractionDigits: 4 }) : '—'}
                   </td>
                 </motion.tr>
               ))}

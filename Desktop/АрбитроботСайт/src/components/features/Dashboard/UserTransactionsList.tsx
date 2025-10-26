@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import type { Transaction } from '@/lib/api/types';
+import { fmtNumber } from '@/utils/format';
 
 interface UserTransactionsListProps {
   transactions: Transaction[];
@@ -149,7 +150,7 @@ export default function UserTransactionsList({
                   }`}
                 >
                   {tx.profit.usd > 0 ? '+' : ''}
-                  ${tx.profit.usd.toFixed(2)}
+                  ${fmtNumber(tx.profit.usd, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>
             </div>
@@ -203,7 +204,7 @@ export default function UserTransactionsList({
                   }`}
                 >
                   {tx.profit.usd > 0 ? '+' : ''}
-                  ${tx.profit.usd.toFixed(2)}
+                  ${fmtNumber(tx.profit.usd, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>
 

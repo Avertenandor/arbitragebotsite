@@ -7,6 +7,7 @@ import { useWallet } from '@/lib/hooks/useWallet';
 import { useAuth } from '@/lib/hooks/useAuth';
 import { Button } from '@/components/ui';
 import { TxStatus } from '@/lib/web3/config';
+import { fmtNumber } from '@/utils/format';
 
 export default function ConnectWallet() {
   const router = useRouter();
@@ -59,7 +60,7 @@ export default function ConnectWallet() {
             Баланс PLEX
           </span>
           <span className="text-sm font-semibold text-[var(--accent)]">
-            {parseFloat(wallet.balance.plex).toFixed(2)}
+            {fmtNumber(parseFloat(wallet.balance.plex), { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </span>
         </div>
         
@@ -234,7 +235,7 @@ export default function ConnectWallet() {
                         BNB
                       </div>
                       <div className="text-lg font-bold text-[var(--primary)]">
-                        {parseFloat(wallet.balance.bnb).toFixed(4)}
+                        {fmtNumber(parseFloat(wallet.balance.bnb), { minimumFractionDigits: 4, maximumFractionDigits: 4 })}
                       </div>
                     </div>
                     <div className="glass rounded-lg p-4">
@@ -242,7 +243,7 @@ export default function ConnectWallet() {
                         PLEX
                       </div>
                       <div className="text-lg font-bold text-[var(--accent)]">
-                        {parseFloat(wallet.balance.plex).toFixed(2)}
+                        {fmtNumber(parseFloat(wallet.balance.plex), { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </div>
                     </div>
                   </div>

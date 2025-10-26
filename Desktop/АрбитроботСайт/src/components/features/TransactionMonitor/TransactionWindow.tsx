@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { useTransactions } from '@/lib/hooks/useTransactions';
 import type { Transaction } from '@/lib/api/types';
+import { fmtNumber } from '@/utils/format';
 
 // Мок данные для разработки (fallback)
 const mockTransactions: Transaction[] = [
@@ -279,7 +280,7 @@ function TransactionCard({ tx, index }: { tx: Transaction; index: number }) {
             <span className="text-[var(--border-color)]">•</span>
             <span className="font-mono">Gas: {tx.gas.price}</span>
             <span className="text-[var(--border-color)]">•</span>
-            <span className="font-mono">Block #{tx.blockNumber.toLocaleString()}</span>
+            <span className="font-mono">Block #{fmtNumber(tx.blockNumber)}</span>
           </div>
         </div>
 
@@ -297,7 +298,7 @@ function TransactionCard({ tx, index }: { tx: Transaction; index: number }) {
                 : 'text-[var(--text-muted)]'
             }`}
           >
-            {tx.profit.usd > 0 ? '+' : ''}${tx.profit.usd.toFixed(2)}
+            {tx.profit.usd > 0 ? '+' : ''}${fmtNumber(tx.profit.usd, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </motion.div>
           <div className="flex items-center gap-2">
             <span className={`text-sm font-semibold ${
@@ -307,10 +308,10 @@ function TransactionCard({ tx, index }: { tx: Transaction; index: number }) {
                 ? 'text-[var(--danger)]'
                 : 'text-[var(--text-muted)]'
             }`}>
-              {tx.profit.percent > 0 ? '+' : ''}{tx.profit.percent.toFixed(2)}%
+              {tx.profit.percent > 0 ? '+' : ''}{fmtNumber(tx.profit.percent, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%
             </span>
             <span className="text-xs text-[var(--text-tertiary)]">
-              {tx.profit.bnb.toFixed(4)} BNB
+              {fmtNumber(tx.profit.bnb, { minimumFractionDigits: 4, maximumFractionDigits: 4 })} BNB
             </span>
           </div>
         </div>
@@ -433,7 +434,7 @@ export default function TransactionWindow() {
           { label: 'Всего', value: displayStats.totalTransactions, gradient: 'from-[var(--primary)] to-[var(--secondary)]' },
           { label: 'Успешно', value: displayStats.successfulTransactions, gradient: 'from-[var(--accent)] to-[var(--primary)]' },
           { label: 'Отклонено', value: displayStats.failedTransactions, gradient: 'from-[var(--danger)] to-[var(--secondary)]' },
-          { label: 'Прибыль', value: `+$${displayStats.totalProfit.toFixed(2)}`, gradient: 'from-[var(--accent)] to-[var(--accent-light)]' },
+          { label: 'Прибыль', value: `+$${fmtNumber(displayStats.totalProfit, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, gradient: 'from-[var(--accent)] to-[var(--accent-light)]' },
         ].map((stat, i) => (
           <motion.div
             key={i}
