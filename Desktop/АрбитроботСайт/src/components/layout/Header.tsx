@@ -7,6 +7,7 @@ import { useState } from 'react';
 import ConnectWallet from '@/components/features/Auth/ConnectWallet';
 import MobileMenu from './MobileMenu';
 import { useAuth } from '@/lib/hooks';
+import ClientOnly from '@/components/utils/ClientOnly';
 
 export default function Header() {
   const pathname = usePathname();
@@ -98,18 +99,20 @@ export default function Header() {
                 🤖 Bot Panel
               </Link>
 
-              {isAuthenticated && (
-                <Link
-                  href="/dashboard"
-                  className={`text-sm font-medium transition-colors ${
-                    isActive('/dashboard')
-                      ? 'text-[var(--primary)]'
-                      : 'text-[var(--text-secondary)] hover:text-[var(--primary)]'
-                  }`}
-                >
-                  Личный кабинет
-                </Link>
-              )}
+              <ClientOnly>
+                {isAuthenticated && (
+                  <Link
+                    href="/dashboard"
+                    className={`text-sm font-medium transition-colors ${
+                      isActive('/dashboard')
+                        ? 'text-[var(--primary)]'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--primary)]'
+                    }`}
+                  >
+                    Личный кабинет
+                  </Link>
+                )}
+              </ClientOnly>
 
               <Link
                 href="/about"
@@ -137,7 +140,9 @@ export default function Header() {
             <div className="flex items-center gap-3">
               {/* Connect Wallet (hidden on mobile) */}
               <div className="hidden sm:block">
-                <ConnectWallet />
+                <ClientOnly>
+                  <ConnectWallet />
+                </ClientOnly>
               </div>
 
               {/* Hamburger Button (mobile only) */}
@@ -165,7 +170,9 @@ export default function Header() {
 
               {/* Connect Wallet (mobile - inside hamburger) */}
               <div className="sm:hidden">
-                <ConnectWallet />
+                <ClientOnly>
+                  <ConnectWallet />
+                </ClientOnly>
               </div>
             </div>
           </div>

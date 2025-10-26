@@ -198,10 +198,14 @@ export function useWallet(): UseWalletReturn {
   /**
    * Handle chain change
    */
-  const handleChainChanged = useCallback(() => {
-    // Reload page on chain change (recommended by MetaMask)
-    window.location.reload();
-  }, []);
+  const handleChainChanged = useCallback(async () => {
+    // Check network instead of reloading page to prevent hydration issues
+    await checkNetwork();
+    // Optionally refresh balance
+    if (state.address) {
+      refreshBalance();
+    }
+  }, [checkNetwork, state.address, refreshBalance]);
 
   /**
    * Setup event listeners
@@ -230,18 +234,20 @@ export function useWallet(): UseWalletReturn {
    * Run only once after hydration to prevent SSR mismatch
    */
   useEffect(() => {
-    // Add a small delay to ensure hydration is complete
-    const timer = setTimeout(() => {
-      if (typeof window === 'undefined') return;
+    // Only run on client-side after initial mount
+    if (typeof window === 'undefined') return;
 
-      const savedAddress = localStorage.getItem(STORAGE_KEYS.WALLET_ADDRESS);
+    // Check if we should auto-connect
+    const savedAddress = localStorage.getItem(STORAGE_KEYS.WALLET_ADDRESS);
 
-      if (savedAddress && !state.isConnected && !state.isConnecting) {
+    if (savedAddress && !state.isConnected && !state.isConnecting) {
+      // Add a small delay to ensure hydration is complete and avoid race conditions
+      const timer = setTimeout(() => {
         connect();
-      }
-    }, 100);
+      }, 100);
 
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
