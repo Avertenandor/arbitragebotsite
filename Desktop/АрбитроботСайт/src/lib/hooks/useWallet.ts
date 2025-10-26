@@ -227,15 +227,21 @@ export function useWallet(): UseWalletReturn {
 
   /**
    * Auto-connect if previously connected
+   * Run only once after hydration to prevent SSR mismatch
    */
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    // Add a small delay to ensure hydration is complete
+    const timer = setTimeout(() => {
+      if (typeof window === 'undefined') return;
 
-    const savedAddress = localStorage.getItem(STORAGE_KEYS.WALLET_ADDRESS);
-    
-    if (savedAddress && !state.isConnected && !state.isConnecting) {
-      connect();
-    }
+      const savedAddress = localStorage.getItem(STORAGE_KEYS.WALLET_ADDRESS);
+
+      if (savedAddress && !state.isConnected && !state.isConnecting) {
+        connect();
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**

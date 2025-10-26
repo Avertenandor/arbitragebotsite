@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { plexContract } from '../web3/contracts/plex';
 import { WEB3_CONFIG, WEB3_ERRORS, STORAGE_KEYS, TxStatus } from '../web3/config';
 
@@ -30,28 +30,32 @@ const initialState: AuthState = {
  * Hook for PLEX token authentication
  */
 export function useAuth(): UseAuthReturn {
-  const [state, setState] = useState<AuthState>(() => {
-    // Check localStorage for existing auth
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
-      const expiry = localStorage.getItem(STORAGE_KEYS.AUTH_EXPIRY);
+  // Always use initial state for SSR/hydration consistency
+  const [state, setState] = useState<AuthState>(initialState);
+  const [isHydrated, setIsHydrated] = useState(false);
 
-      if (token && expiry) {
-        const expiryDate = new Date(expiry);
-        const now = new Date();
+  // Check localStorage after component mounts (client-side only)
+  useEffect(() => {
+    if (isHydrated) return;
 
-        if (expiryDate > now) {
-          return {
-            ...initialState,
-            isAuthenticated: true,
-            authToken: token,
-          };
-        }
+    const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+    const expiry = localStorage.getItem(STORAGE_KEYS.AUTH_EXPIRY);
+
+    if (token && expiry) {
+      const expiryDate = new Date(expiry);
+      const now = new Date();
+
+      if (expiryDate > now) {
+        setState({
+          ...initialState,
+          isAuthenticated: true,
+          authToken: token,
+        });
       }
     }
 
-    return initialState;
-  });
+    setIsHydrated(true);
+  }, [isHydrated]);
 
   /**
    * Check if user is authenticated
