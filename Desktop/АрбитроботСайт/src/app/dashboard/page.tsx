@@ -1,17 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useWallet } from '@/lib/hooks/useWallet';
 import { useUserStats } from '@/lib/hooks/useUserStats';
 import StatsOverview from '@/components/features/Dashboard/StatsOverview';
 import UserTransactionsList from '@/components/features/Dashboard/UserTransactionsList';
 
 /**
- * Dashboard Page - личный кабинет пользователя
+ * Dashboard Page - панель управления и статистика
  */
 export default function DashboardPage() {
-  const { address } = useWallet();
-  
   const {
     stats,
     transactions,
@@ -37,15 +34,10 @@ export default function DashboardPage() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-4xl sm:text-5xl font-bold text-gradient mb-2">
-              Личный Кабинет
+              Панель управления
             </h1>
             <p className="text-[var(--text-secondary)] text-sm sm:text-base">
-              Ваш адрес:{' '}
-              <span className="font-mono text-[var(--primary)]">
-                {address
-                  ? `${address.slice(0, 6)}...${address.slice(-4)}`
-                  : 'Не подключен'}
-              </span>
+              Мониторинг и статистика ArbitroBot
             </p>
           </div>
 

@@ -4,14 +4,10 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import ConnectWallet from '@/components/features/Auth/ConnectWallet';
 import MobileMenu from './MobileMenu';
-import { useAuth } from '@/lib/hooks';
-import ClientOnly from '@/components/utils/ClientOnly';
 
 export default function Header() {
   const pathname = usePathname();
-  const { isAuthenticated } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const isActive = (path: string) => pathname === path;
@@ -99,20 +95,16 @@ export default function Header() {
                 🤖 Bot Panel
               </Link>
 
-              <ClientOnly>
-                {isAuthenticated && (
-                  <Link
-                    href="/dashboard"
-                    className={`text-sm font-medium transition-colors ${
-                      isActive('/dashboard')
-                        ? 'text-[var(--primary)]'
-                        : 'text-[var(--text-secondary)] hover:text-[var(--primary)]'
-                    }`}
-                  >
-                    Личный кабинет
-                  </Link>
-                )}
-              </ClientOnly>
+              <Link
+                href="/dashboard"
+                className={`text-sm font-medium transition-colors ${
+                  isActive('/dashboard')
+                    ? 'text-[var(--primary)]'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--primary)]'
+                }`}
+              >
+                Панель управления
+              </Link>
 
               <Link
                 href="/about"
@@ -138,13 +130,6 @@ export default function Header() {
 
             {/* Right Section */}
             <div className="flex items-center gap-3">
-              {/* Connect Wallet (hidden on mobile) */}
-              <div className="hidden sm:block">
-                <ClientOnly>
-                  <ConnectWallet />
-                </ClientOnly>
-              </div>
-
               {/* Hamburger Button (mobile only) */}
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
@@ -167,13 +152,6 @@ export default function Header() {
                   <line x1="3" y1="18" x2="21" y2="18" />
                 </svg>
               </button>
-
-              {/* Connect Wallet (mobile - inside hamburger) */}
-              <div className="sm:hidden">
-                <ClientOnly>
-                  <ConnectWallet />
-                </ClientOnly>
-              </div>
             </div>
           </div>
         </div>

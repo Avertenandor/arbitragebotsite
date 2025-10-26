@@ -1,27 +1,27 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useWallet } from './useWallet';
 import { apiClient } from '../api/client';
 import type { UserStats, Transaction, PaginatedResponse } from '../api/types';
 
 export interface UseUserStatsOptions {
   autoFetch?: boolean;
+  address?: string; // Опциональный адрес кошелька
 }
 
 export interface UseUserStatsReturn {
   // User stats
   stats: UserStats | null;
   transactions: Transaction[];
-  
+
   // UI State
   isLoading: boolean;
   error: string | null;
-  
+
   // Pagination
   page: number;
   pageSize: number;
   total: number;
   hasMore: boolean;
-  
+
   // Actions
   fetchStats: () => Promise<void>;
   fetchTransactions: () => Promise<void>;
@@ -32,12 +32,12 @@ export interface UseUserStatsReturn {
 
 /**
  * Hook for managing user-specific stats and transactions
+ * Теперь работает без подключения кошелька - показывает общую статистику
  */
 export function useUserStats(
   options: UseUserStatsOptions = {}
 ): UseUserStatsReturn {
-  const { autoFetch = true } = options;
-  const { address, isConnected } = useWallet();
+  const { autoFetch = true, address = 'demo' } = options;
 
   // State
   const [stats, setStats] = useState<UserStats | null>(null);
@@ -55,11 +55,6 @@ export function useUserStats(
    * Fetch user statistics
    */
   const fetchStats = useCallback(async () => {
-    if (!address) {
-      setError('Wallet not connected');
-      return;
-    }
-
     try {
       setIsLoading(true);
       setError(null);
@@ -78,11 +73,6 @@ export function useUserStats(
    * Fetch user transactions
    */
   const fetchTransactions = useCallback(async () => {
-    if (!address) {
-      setError('Wallet not connected');
-      return;
-    }
-
     try {
       setIsLoading(true);
       setError(null);
@@ -135,19 +125,19 @@ export function useUserStats(
    * Auto-fetch on mount and when address changes
    */
   useEffect(() => {
-    if (autoFetch && address && isConnected) {
+    if (autoFetch && address) {
       refresh();
     }
-  }, [address, isConnected]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [address]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
    * Refetch transactions when page changes
    */
   useEffect(() => {
-    if (autoFetch && address && isConnected && page > 1) {
+    if (autoFetch && address && page > 1) {
       fetchTransactions();
     }
-  }, [page, autoFetch, address, isConnected, fetchTransactions]);
+  }, [page, autoFetch, address, fetchTransactions]);
 
   return {
     // Data
