@@ -217,7 +217,7 @@ export default function ContractTab() {
           />
           <InfoCard
             label="Balance"
-            value={`${contractStatus.fmtNumber(balanceBNB, { minimumFractionDigits: 4, maximumFractionDigits: 4 })} BNB`}
+            value={`${fmtNumber(contractStatus.balanceBNB, { minimumFractionDigits: 4, maximumFractionDigits: 4 })} BNB`}
             color="warning"
           />
           <InfoCard
