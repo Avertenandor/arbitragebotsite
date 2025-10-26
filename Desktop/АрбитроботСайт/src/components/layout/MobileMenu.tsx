@@ -3,9 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import { useAuth } from '@/lib/hooks';
-import ClientOnly from '@/components/utils/ClientOnly';
+import { useEffect } from 'react';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -14,7 +12,6 @@ interface MobileMenuProps {
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const pathname = usePathname();
-  const { isAuthenticated } = useAuth();
 
   // Close menu on route change
   useEffect(() => {
@@ -33,17 +30,11 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     };
   }, [isOpen]);
 
-  // Static nav items (always visible)
-  const staticNavItems = [
+  // Navigation items
+  const navItems = [
     { href: '/', label: 'Мониторинг', icon: '📊' },
     { href: '/bot', label: 'Bot Panel', icon: '🤖' },
-  ];
-
-  // Dashboard item (conditionally rendered)
-  const dashboardItem = { href: '/dashboard', label: 'Личный кабинет', icon: '👤' };
-
-  // Other static items
-  const otherNavItems = [
+    { href: '/dashboard', label: 'Панель управления', icon: '👤' },
     { href: '/about', label: 'О проекте', icon: 'ℹ️' },
     { href: '/faq', label: 'FAQ', icon: '❓' },
   ];
@@ -97,8 +88,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             {/* Navigation */}
             <nav className="px-4 pb-8">
               <ul className="space-y-2">
-                {/* Static nav items (always visible) */}
-                {staticNavItems.map((item, index) => {
+                {navItems.map((item, index) => {
                   const isActive = pathname === item.href;
                   return (
                     <motion.li
@@ -106,60 +96,6 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
-                    >
-                      <Link
-                        href={item.href}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
-                          isActive
-                            ? 'bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-white'
-                            : 'text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--primary)]'
-                        }`}
-                      >
-                        <span className="text-2xl">{item.icon}</span>
-                        <span className="text-lg font-medium">
-                          {item.label}
-                        </span>
-                      </Link>
-                    </motion.li>
-                  );
-                })}
-
-                {/* Dashboard item (conditionally rendered with ClientOnly) */}
-                <ClientOnly>
-                  {isAuthenticated && (
-                    <motion.li
-                      key={dashboardItem.href}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: staticNavItems.length * 0.1 }}
-                    >
-                      <Link
-                        href={dashboardItem.href}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
-                          pathname === dashboardItem.href
-                            ? 'bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-white'
-                            : 'text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--primary)]'
-                        }`}
-                      >
-                        <span className="text-2xl">{dashboardItem.icon}</span>
-                        <span className="text-lg font-medium">
-                          {dashboardItem.label}
-                        </span>
-                      </Link>
-                    </motion.li>
-                  )}
-                </ClientOnly>
-
-                {/* Other static nav items */}
-                {otherNavItems.map((item, index) => {
-                  const isActive = pathname === item.href;
-                  const actualIndex = staticNavItems.length + 1 + index;
-                  return (
-                    <motion.li
-                      key={item.href}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: actualIndex * 0.1 }}
                     >
                       <Link
                         href={item.href}
