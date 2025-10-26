@@ -21,7 +21,7 @@ export default function AnimatedBackground() {
 
   useEffect(() => {
     // Отключить на мобильных устройствах для производительности
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const isMobile = typeof window !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
       console.log('AnimatedBackground: Disabled on mobile');
       return;
