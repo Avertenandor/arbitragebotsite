@@ -36,7 +36,8 @@ export function useAuth(): UseAuthReturn {
 
   // Check localStorage after component mounts (client-side only)
   useEffect(() => {
-    if (isHydrated) return;
+    // Only run once after mount
+    if (typeof window === 'undefined' || isHydrated) return;
 
     const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
     const expiry = localStorage.getItem(STORAGE_KEYS.AUTH_EXPIRY);
@@ -51,6 +52,10 @@ export function useAuth(): UseAuthReturn {
           isAuthenticated: true,
           authToken: token,
         });
+      } else {
+        // Clean up expired tokens
+        localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
+        localStorage.removeItem(STORAGE_KEYS.AUTH_EXPIRY);
       }
     }
 
