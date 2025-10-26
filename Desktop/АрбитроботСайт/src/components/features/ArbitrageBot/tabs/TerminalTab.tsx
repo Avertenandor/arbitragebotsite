@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { formatters } from '@/utils/format';
+import { useIsClient } from '@/hooks/useIsClient';
 
 interface TerminalLine {
   type: 'command' | 'output' | 'error';
@@ -10,29 +12,40 @@ interface TerminalLine {
 }
 
 export default function TerminalTab() {
-  const [lines, setLines] = useState<TerminalLine[]>([
-    {
-      type: 'output',
-      content: 'Python 3.11.5 Terminal - ArbitroBot',
-      timestamp: new Date().toLocaleTimeString('ru-RU'),
-    },
-    {
-      type: 'output',
-      content: 'Type "help" for available commands',
-      timestamp: new Date().toLocaleTimeString('ru-RU'),
-    },
-    {
-      type: 'output',
-      content: '─'.repeat(60),
-      timestamp: new Date().toLocaleTimeString('ru-RU'),
-    },
-  ]);
+  const isClient = useIsClient();
+
+  // Используем пустой массив для SSR, заполняем на клиенте
+  const [lines, setLines] = useState<TerminalLine[]>([]);
 
   const [input, setInput] = useState('');
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const outputRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Инициализация начальных строк на клиенте
+  useEffect(() => {
+    if (isClient && lines.length === 0) {
+      const now = formatters.time(new Date());
+      setLines([
+        {
+          type: 'output',
+          content: 'Python 3.11.5 Terminal - ArbitroBot',
+          timestamp: now,
+        },
+        {
+          type: 'output',
+          content: 'Type "help" for available commands',
+          timestamp: now,
+        },
+        {
+          type: 'output',
+          content: '─'.repeat(60),
+          timestamp: now,
+        },
+      ]);
+    }
+  }, [isClient, lines.length]);
 
   // Автоскролл к последней строке
   useEffect(() => {
@@ -44,141 +57,152 @@ export default function TerminalTab() {
   // Доступные команды
   const executeCommand = (cmd: string) => {
     const command = cmd.trim().toLowerCase();
+    const now = formatters.time(new Date());
 
     // Добавляем команду в вывод
     const newLines: TerminalLine[] = [
       {
         type: 'command',
         content: `$ ${cmd}`,
-        timestamp: new Date().toLocaleTimeString('ru-RU'),
+        timestamp: now,
       },
     ];
 
     // Обработка команд
     switch (command) {
       case 'help':
-        newLines.push({
-          type: 'output',
-          content: 'Available commands:',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: '  help          - Show this help message',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: '  status        - Show bot status',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: '  stats         - Display statistics',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: '  wallet        - Check wallet balance',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: '  node          - Check RPC node status',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: '  clear         - Clear terminal output',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
+        newLines.push(
+          {
+            type: 'output',
+            content: 'Available commands:',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: '  help          - Show this help message',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: '  status        - Show bot status',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: '  stats         - Display statistics',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: '  wallet        - Check wallet balance',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: '  node          - Check RPC node status',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: '  clear         - Clear terminal output',
+            timestamp: now,
+          }
+        );
         break;
 
       case 'status':
-        newLines.push({
-          type: 'output',
-          content: 'Bot Status: ACTIVE',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: 'Uptime: 5 days, 12 hours, 34 minutes',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: 'Last trade: 5 minutes ago',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
+        newLines.push(
+          {
+            type: 'output',
+            content: 'Bot Status: ACTIVE',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: 'Uptime: 5 days, 12 hours, 34 minutes',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: 'Last trade: 5 minutes ago',
+            timestamp: now,
+          }
+        );
         break;
 
       case 'stats':
-        newLines.push({
-          type: 'output',
-          content: 'Trading Statistics:',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: '  Total Trades: 7,821',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: '  Success Rate: 91.5%',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: '  Total Profit: $45,678.92',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
+        newLines.push(
+          {
+            type: 'output',
+            content: 'Trading Statistics:',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: '  Total Trades: 7,821',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: '  Success Rate: 91.5%',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: '  Total Profit: $45,678.92',
+            timestamp: now,
+          }
+        );
         break;
 
       case 'wallet':
-        newLines.push({
-          type: 'output',
-          content: 'Wallet Balance:',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: '  BNB:  5.4321',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: '  USDT: 1,234.56',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: '  BUSD: 987.65',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
+        newLines.push(
+          {
+            type: 'output',
+            content: 'Wallet Balance:',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: '  BNB:  5.4321',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: '  USDT: 1,234.56',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: '  BUSD: 987.65',
+            timestamp: now,
+          }
+        );
         break;
 
       case 'node':
-        newLines.push({
-          type: 'output',
-          content: 'RPC Node Status:',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: '  Status: Connected',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: '  Latency: 85ms',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: '  RPS: 12.5',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
+        newLines.push(
+          {
+            type: 'output',
+            content: 'RPC Node Status:',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: '  Status: Connected',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: '  Latency: 85ms',
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: '  RPS: 12.5',
+            timestamp: now,
+          }
+        );
         break;
 
       case 'clear':
@@ -186,7 +210,7 @@ export default function TerminalTab() {
           {
             type: 'output',
             content: 'Terminal cleared',
-            timestamp: new Date().toLocaleTimeString('ru-RU'),
+            timestamp: now,
           },
         ]);
         return;
@@ -196,16 +220,18 @@ export default function TerminalTab() {
         break;
 
       default:
-        newLines.push({
-          type: 'error',
-          content: `Command not found: ${command}`,
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
-        newLines.push({
-          type: 'output',
-          content: 'Type "help" for available commands',
-          timestamp: new Date().toLocaleTimeString('ru-RU'),
-        });
+        newLines.push(
+          {
+            type: 'error',
+            content: `Command not found: ${command}`,
+            timestamp: now,
+          },
+          {
+            type: 'output',
+            content: 'Type "help" for available commands',
+            timestamp: now,
+          }
+        );
     }
 
     setLines((prev) => [...prev, ...newLines]);
@@ -258,17 +284,19 @@ export default function TerminalTab() {
 
   // Очистка вывода
   const handleClearOutput = () => {
+    const now = formatters.time(new Date());
     setLines([
       {
         type: 'output',
         content: 'Terminal cleared',
-        timestamp: new Date().toLocaleTimeString('ru-RU'),
+        timestamp: now,
       },
     ]);
   };
 
   // Копирование вывода
   const handleCopyOutput = () => {
+    if (typeof window === 'undefined') return;
     const text = lines.map((line) => line.content).join('\n');
     navigator.clipboard.writeText(text);
     alert('Вывод скопирован в буфер обмена!');
@@ -276,6 +304,7 @@ export default function TerminalTab() {
 
   // Сохранение сессии
   const handleSaveSession = () => {
+    if (typeof window === 'undefined') return;
     const text = lines.map((line) => `[${line.timestamp}] ${line.content}`).join('\n');
     const blob = new Blob([text], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);

@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { fmtNumber, formatters } from '@/utils/format';
 
 interface WhitelistToken {
   address: string;
@@ -309,7 +310,7 @@ export default function WhitelistTab() {
                       {token.reason}
                     </td>
                     <td className="px-4 py-3 text-sm font-mono text-[var(--text-tertiary)]">
-                      {token.lastCheckBlock.toLocaleString()}
+                      {token.fmtNumber(lastCheckBlock)}
                     </td>
                     <td className="px-4 py-3 text-sm">
                       <span

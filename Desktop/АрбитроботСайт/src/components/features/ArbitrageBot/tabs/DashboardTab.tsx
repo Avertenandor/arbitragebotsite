@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { fmtNumber, formatters } from '@/utils/format';
+import NoSSR from '@/components/utils/NoSSR';
 
 // Моковые данные для демонстрации
 const useBotMetrics = () => {
@@ -34,7 +36,8 @@ const useBotMetrics = () => {
         currentBlock: prev.currentBlock + 1,
         rpcRequests: {
           ...prev.rpcRequests,
-          used: prev.rpcRequests.used + Math.floor(Math.random() * 3),
+          // Используем детерминированное увеличение вместо random
+          used: prev.rpcRequests.used + ((prev.currentBlock % 3) + 1),
         },
       }));
     }, 2000);
@@ -43,14 +46,7 @@ const useBotMetrics = () => {
   }, []);
 
   const addLog = (message: string) => {
-    const timestamp = new Date().toLocaleString('ru-RU', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    });
+    const timestamp = formatters.dateTime(new Date());
     setLogs((prev) => [...prev, `[${timestamp}] ${message}`]);
   };
 
@@ -197,22 +193,22 @@ export default function DashboardTab() {
         <MetricCard
           icon="📦"
           title="Текущий блок"
-          value={metrics.currentBlock.toLocaleString()}
+          value={fmtNumber(metrics.currentBlock)}
           color="info"
+          dynamic
         />
         <MetricCard
           icon="🌐"
           title="RPC запросов (мес)"
-          value={`${metrics.rpcRequests.used.toLocaleString()} / ${(
-            metrics.rpcRequests.limit / 1000000
-          ).toFixed(0)}M`}
+          value={`${fmtNumber(metrics.rpcRequests.used)} / ${fmtNumber(metrics.rpcRequests.limit / 1000000, { maximumFractionDigits: 0 })}M`}
           color="success"
           tooltip="⚠️ Только этот проект (DexArbBot)\nНода обслуживает несколько проектов!"
+          dynamic
         />
         <MetricCard
           icon="👁️"
           title="Whitelist"
-          value={metrics.whitelistCount.toString()}
+          value={fmtNumber(metrics.whitelistCount)}
           color="success"
         />
 
@@ -220,19 +216,19 @@ export default function DashboardTab() {
         <MetricCard
           icon="💹"
           title="Возможности"
-          value={metrics.opportunities.toString()}
+          value={fmtNumber(metrics.opportunities)}
           color="primary"
         />
         <MetricCard
           icon="✅"
           title="Успешно"
-          value={metrics.successfulTrades.toString()}
+          value={fmtNumber(metrics.successfulTrades)}
           color="success"
         />
         <MetricCard
           icon="❌"
           title="Неудачно"
-          value={metrics.failedTrades.toString()}
+          value={fmtNumber(metrics.failedTrades)}
           color="danger"
         />
 
@@ -240,21 +236,21 @@ export default function DashboardTab() {
         <MetricCard
           icon="💰"
           title="Профит (USDT)"
-          value={metrics.profit.toFixed(4)}
+          value={fmtNumber(metrics.profit, { minimumFractionDigits: 4, maximumFractionDigits: 4 })}
           color="success"
           large
         />
         <MetricCard
           icon="🔍"
           title="Отсканировано"
-          value={`${metrics.scannedBlocks} блоков`}
-          subtitle={`последний: ${metrics.lastBlock}`}
+          value={`${fmtNumber(metrics.scannedBlocks)} блоков`}
+          subtitle={`последний: ${fmtNumber(metrics.lastBlock)}`}
           color="primary"
         />
         <MetricCard
           icon="⚡"
           title="Success Rate"
-          value={`${metrics.successRate}%`}
+          value={`${fmtNumber(metrics.successRate)}%`}
           color="warning"
         />
       </motion.div>
@@ -309,9 +305,10 @@ interface MetricCardProps {
   subtitle?: string;
   tooltip?: string;
   large?: boolean;
+  dynamic?: boolean; // Флаг для динамических данных (блок, RPC счетчики и т.д.)
 }
 
-function MetricCard({ icon, title, value, color, subtitle, tooltip, large }: MetricCardProps) {
+function MetricCard({ icon, title, value, color, subtitle, tooltip, large, dynamic }: MetricCardProps) {
   const colorClasses = {
     primary: 'text-[var(--primary)]',
     success: 'text-[var(--success)]',
@@ -319,6 +316,12 @@ function MetricCard({ icon, title, value, color, subtitle, tooltip, large }: Met
     warning: 'text-[var(--warning)]',
     info: 'text-[var(--info)]',
   };
+
+  const valueElement = (
+    <p className={`${large ? 'text-3xl' : 'text-2xl'} font-bold ${colorClasses[color]} truncate`}>
+      {value}
+    </p>
+  );
 
   return (
     <div className="glass rounded-xl p-5 hover:border-[var(--border-color-hover)] transition-all group" title={tooltip}>
@@ -328,9 +331,13 @@ function MetricCard({ icon, title, value, color, subtitle, tooltip, large }: Met
           <p className="text-xs text-[var(--text-muted)] mb-1 uppercase tracking-wider">
             {title}
           </p>
-          <p className={`${large ? 'text-3xl' : 'text-2xl'} font-bold ${colorClasses[color]} truncate`}>
-            {value}
-          </p>
+          {dynamic ? (
+            <span suppressHydrationWarning>
+              <NoSSR fallback="—">{valueElement}</NoSSR>
+            </span>
+          ) : (
+            valueElement
+          )}
           {subtitle && (
             <p className="text-xs text-[var(--text-tertiary)] mt-1">{subtitle}</p>
           )}

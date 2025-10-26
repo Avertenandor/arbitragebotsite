@@ -1,7 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { fmtNumber, formatters } from '@/utils/format';
+import { useIsClient } from '@/hooks/useIsClient';
 
 interface Statistics {
   blocksProcessed: number;
@@ -21,17 +23,20 @@ interface Trade {
   txHash: string;
 }
 
-// Генерация случайного хэша транзакции
-const generateTxHash = () => {
+// Генерация детерминированного хэша транзакции на основе индекса
+const generateTxHash = (index: number) => {
   const chars = '0123456789abcdef';
   let hash = '0x';
+  // Используем индекс для детерминированной генерации
   for (let i = 0; i < 64; i++) {
-    hash += chars[Math.floor(Math.random() * chars.length)];
+    hash += chars[(index * 7 + i * 3) % chars.length];
   }
   return hash;
 };
 
 export default function StatisticsTab() {
+  const isClient = useIsClient();
+
   const [statistics] = useState<Statistics>({
     blocksProcessed: 1245678,
     opportunities: 8543,
@@ -41,48 +46,57 @@ export default function StatisticsTab() {
     successRate: 91.5,
   });
 
-  const [recentTrades] = useState<Trade[]>([
-    {
-      timestamp: new Date(Date.now() - 300000).toLocaleTimeString('ru-RU'),
-      route: 'PancakeSwap V2 → BiSwap',
-      profit: 12.45,
-      gas: 0.0012,
-      status: 'success',
-      txHash: generateTxHash(),
-    },
-    {
-      timestamp: new Date(Date.now() - 600000).toLocaleTimeString('ru-RU'),
-      route: 'ApeSwap → BakerySwap',
-      profit: 8.32,
-      gas: 0.0015,
-      status: 'success',
-      txHash: generateTxHash(),
-    },
-    {
-      timestamp: new Date(Date.now() - 900000).toLocaleTimeString('ru-RU'),
-      route: 'PancakeSwap V3 → MDEX',
-      profit: -2.15,
-      gas: 0.0018,
-      status: 'failed',
-      txHash: generateTxHash(),
-    },
-    {
-      timestamp: new Date(Date.now() - 1200000).toLocaleTimeString('ru-RU'),
-      route: 'BiSwap → PancakeSwap V2',
-      profit: 15.67,
-      gas: 0.0011,
-      status: 'success',
-      txHash: generateTxHash(),
-    },
-    {
-      timestamp: new Date(Date.now() - 1500000).toLocaleTimeString('ru-RU'),
-      route: 'BakerySwap → ApeSwap',
-      profit: 6.89,
-      gas: 0.0013,
-      status: 'success',
-      txHash: generateTxHash(),
-    },
-  ]);
+  // Инициализируем пустым массивом для SSR
+  const [recentTrades, setRecentTrades] = useState<Trade[]>([]);
+
+  // Заполняем данные на клиенте
+  useEffect(() => {
+    if (isClient && recentTrades.length === 0) {
+      const mockTrades: Trade[] = [
+        {
+          timestamp: formatters.time(new Date(Date.now() - 300000)),
+          route: 'PancakeSwap V2 → BiSwap',
+          profit: 12.45,
+          gas: 0.0012,
+          status: 'success',
+          txHash: generateTxHash(0),
+        },
+        {
+          timestamp: formatters.time(new Date(Date.now() - 600000)),
+          route: 'ApeSwap → BakerySwap',
+          profit: 8.32,
+          gas: 0.0015,
+          status: 'success',
+          txHash: generateTxHash(1),
+        },
+        {
+          timestamp: formatters.time(new Date(Date.now() - 900000)),
+          route: 'PancakeSwap V3 → MDEX',
+          profit: -2.15,
+          gas: 0.0018,
+          status: 'failed',
+          txHash: generateTxHash(2),
+        },
+        {
+          timestamp: formatters.time(new Date(Date.now() - 1200000)),
+          route: 'BiSwap → PancakeSwap V2',
+          profit: 15.67,
+          gas: 0.0011,
+          status: 'success',
+          txHash: generateTxHash(3),
+        },
+        {
+          timestamp: formatters.time(new Date(Date.now() - 1500000)),
+          route: 'BakerySwap → ApeSwap',
+          profit: 6.89,
+          gas: 0.0013,
+          status: 'success',
+          txHash: generateTxHash(4),
+        },
+      ];
+      setRecentTrades(mockTrades);
+    }
+  }, [isClient, recentTrades.length]);
 
   // Данные для графика прибыли (моковые)
   const [profitHistory] = useState([
@@ -125,37 +139,37 @@ export default function StatisticsTab() {
         <MetricCard
           icon="📦"
           title="Blocks Processed"
-          value={statistics.blocksProcessed.toLocaleString()}
+          value={fmtNumber(statistics.blocksProcessed)}
           color="info"
         />
         <MetricCard
           icon="🎯"
           title="Opportunities"
-          value={statistics.opportunities.toLocaleString()}
+          value={fmtNumber(statistics.opportunities)}
           color="warning"
         />
         <MetricCard
           icon="✅"
           title="Success Trades"
-          value={statistics.successTrades.toLocaleString()}
+          value={fmtNumber(statistics.successTrades)}
           color="success"
         />
         <MetricCard
           icon="❌"
           title="Failed Trades"
-          value={statistics.failedTrades.toLocaleString()}
+          value={fmtNumber(statistics.failedTrades)}
           color="danger"
         />
         <MetricCard
           icon="💰"
           title="Total Profit"
-          value={`$${statistics.totalProfitUSD.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+          value={formatters.currency(statistics.totalProfitUSD)}
           color="success"
         />
         <MetricCard
           icon="📈"
           title="Success Rate"
-          value={`${statistics.successRate}%`}
+          value={`${fmtNumber(statistics.successRate)}%`}
           color={getSuccessRateColor() as any}
         />
       </motion.div>
@@ -272,11 +286,11 @@ export default function StatisticsTab() {
                           : 'text-[var(--danger)]'
                       }`}
                     >
-                      {trade.profit > 0 ? '+' : ''}${trade.profit.toFixed(2)}
+                      {trade.profit > 0 ? '+' : ''}${fmtNumber(trade.profit, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-sm text-[var(--text-secondary)] font-mono">
-                    {trade.gas.toFixed(4)}
+                    {fmtNumber(trade.gas, { minimumFractionDigits: 4, maximumFractionDigits: 4 })}
                   </td>
                   <td className="px-6 py-4 text-sm">
                     <span

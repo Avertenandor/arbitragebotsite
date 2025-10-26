@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { fmtNumber } from '@/utils/format';
 
 interface WalletBalances {
   bnb: number;
@@ -56,10 +57,12 @@ export default function WalletTab() {
     if (!isConnected) return;
 
     // В реальной версии здесь будет запрос к блокчейну
+    // Используем детерминированное изменение вместо Math.random()
+    const timestamp = Date.now();
     setBalances({
-      bnb: Math.random() * 5,
-      usdt: Math.random() * 1000,
-      busd: Math.random() * 500,
+      bnb: 3.5432 + (timestamp % 100) / 1000,
+      usdt: 567.89 + (timestamp % 500) / 10,
+      busd: 234.56 + (timestamp % 200) / 10,
       others: 0,
     });
   };
@@ -246,7 +249,7 @@ export default function WalletTab() {
               BNB:
             </p>
             <p className="text-3xl font-bold text-[var(--success)]">
-              {balances.bnb.toFixed(4)}
+              {fmtNumber(balances.bnb, { minimumFractionDigits: 4, maximumFractionDigits: 4 })}
             </p>
           </div>
 
@@ -256,7 +259,7 @@ export default function WalletTab() {
               USDT:
             </p>
             <p className="text-3xl font-bold text-[var(--success)]">
-              {balances.usdt.toFixed(4)}
+              {fmtNumber(balances.usdt, { minimumFractionDigits: 4, maximumFractionDigits: 4 })}
             </p>
           </div>
 
@@ -266,7 +269,7 @@ export default function WalletTab() {
               BUSD:
             </p>
             <p className="text-3xl font-bold text-[var(--success)]">
-              {balances.busd.toFixed(4)}
+              {fmtNumber(balances.busd, { minimumFractionDigits: 4, maximumFractionDigits: 4 })}
             </p>
           </div>
 

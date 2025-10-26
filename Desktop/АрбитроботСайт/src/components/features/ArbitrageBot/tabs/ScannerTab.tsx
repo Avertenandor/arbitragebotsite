@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { fmtNumber, formatters } from '@/utils/format';
 
 interface ScannerMetrics {
   scannedBlocks: number;
@@ -243,13 +244,13 @@ export default function ScannerTab() {
         <MetricCard
           icon="📦"
           title="Отсканировано блоков"
-          value={metrics.scannedBlocks.toLocaleString()}
+          value={metrics.fmtNumber(scannedBlocks)}
           color="info"
         />
         <MetricCard
           icon="🔍"
           title="Проверено токенов"
-          value={metrics.checkedTokens.toLocaleString()}
+          value={metrics.fmtNumber(checkedTokens)}
           color="primary"
         />
         <MetricCard
@@ -263,13 +264,13 @@ export default function ScannerTab() {
         <MetricCard
           icon="✅"
           title="Whitelist добавлено"
-          value={metrics.whitelistAdded.toLocaleString()}
+          value={metrics.fmtNumber(whitelistAdded)}
           color="success"
         />
         <MetricCard
           icon="🚫"
           title="Blacklist добавлено"
-          value={metrics.blacklistAdded.toLocaleString()}
+          value={metrics.fmtNumber(blacklistAdded)}
           color="danger"
         />
         <MetricCard
@@ -407,7 +408,7 @@ export default function ScannerTab() {
                     }`}
                   >
                     <td className="px-6 py-4 text-sm text-[var(--text-primary)] font-mono">
-                      {check.blockNumber.toLocaleString()}
+                      {check.fmtNumber(blockNumber)}
                     </td>
                     <td className="px-6 py-4 text-sm">
                       <a

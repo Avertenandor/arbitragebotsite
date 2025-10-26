@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { fmtNumber, formatters } from '@/utils/format';
 
 interface DecisionStats {
   total: number;
@@ -150,19 +151,19 @@ export default function DecisionsTab() {
         <MetricCard
           icon="📊"
           title="Total Decisions"
-          value={stats.total.toLocaleString()}
+          value={stats.fmtNumber(total)}
           color="info"
         />
         <MetricCard
           icon="✅"
           title="GO Decisions"
-          value={stats.go.toLocaleString()}
+          value={stats.fmtNumber(go)}
           color="success"
         />
         <MetricCard
           icon="❌"
           title="NO_GO Decisions"
-          value={stats.noGo.toLocaleString()}
+          value={stats.fmtNumber(noGo)}
           color="danger"
         />
       </motion.div>
@@ -199,13 +200,13 @@ export default function DecisionsTab() {
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-[var(--success)]" />
             <span className="text-[var(--text-secondary)]">
-              GO: {stats.go.toLocaleString()} ({((stats.go / stats.total) * 100).toFixed(1)}%)
+              GO: {stats.fmtNumber(go)} ({((stats.go / stats.total) * 100).toFixed(1)}%)
             </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-[var(--danger)]" />
             <span className="text-[var(--text-secondary)]">
-              NO_GO: {stats.noGo.toLocaleString()} ({((stats.noGo / stats.total) * 100).toFixed(1)}%)
+              NO_GO: {stats.fmtNumber(noGo)} ({((stats.noGo / stats.total) * 100).toFixed(1)}%)
             </span>
           </div>
         </div>
@@ -348,14 +349,14 @@ export default function DecisionsTab() {
                   <td className="px-6 py-4 text-sm">
                     {decision.profitEst > 0 ? (
                       <span className="text-[var(--success)] font-bold">
-                        +${decision.profitEst.toFixed(2)}
+                        +${decision.fmtNumber(profitEst, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </span>
                     ) : (
                       <span className="text-[var(--text-muted)]">—</span>
                     )}
                   </td>
                   <td className="px-6 py-4 text-sm text-[var(--text-secondary)] font-mono">
-                    {decision.gasEst > 0 ? decision.gasEst.toFixed(4) : '—'}
+                    {decision.gasEst > 0 ? decision.fmtNumber(gasEst, { minimumFractionDigits: 4, maximumFractionDigits: 4 }) : '—'}
                   </td>
                 </motion.tr>
               ))}

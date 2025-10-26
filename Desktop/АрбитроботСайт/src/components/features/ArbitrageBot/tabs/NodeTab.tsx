@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { fmtNumber } from '@/utils/format';
 
 interface NodeMetrics {
   latency: number;
@@ -98,25 +99,25 @@ export default function NodeTab() {
         <MetricCard
           icon="⚡"
           title="Latency"
-          value={`${metrics.latency}ms`}
+          value={`${fmtNumber(metrics.latency)}ms`}
           color={getLatencyColor() as any}
         />
         <MetricCard
           icon="📊"
           title="RPS"
-          value={metrics.rps.toFixed(1)}
+          value={fmtNumber(metrics.rps, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
           color="info"
         />
         <MetricCard
           icon="✅"
           title="Success Rate"
-          value={`${metrics.successRate}%`}
+          value={`${fmtNumber(metrics.successRate)}%`}
           color={getSuccessRateColor() as any}
         />
         <MetricCard
           icon="📈"
           title="Total Requests"
-          value={metrics.totalRequests.toLocaleString()}
+          value={fmtNumber(metrics.totalRequests)}
           color="primary"
         />
       </motion.div>
