@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { fmtNumber, formatters } from '@/utils/format';
 
 interface ContractStatus {
   address: string;
@@ -216,7 +217,7 @@ export default function ContractTab() {
           />
           <InfoCard
             label="Balance"
-            value={`${contractStatus.balanceBNB.toFixed(4)} BNB`}
+            value={`${contractStatus.fmtNumber(balanceBNB, { minimumFractionDigits: 4, maximumFractionDigits: 4 })} BNB`}
             color="warning"
           />
           <InfoCard
