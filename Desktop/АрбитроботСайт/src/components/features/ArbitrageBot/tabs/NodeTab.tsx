@@ -11,7 +11,6 @@ interface NodeMetrics {
 }
 
 export default function NodeTab() {
-  const [endpoint] = useState('https://old-patient-butterfly.bsc.quiknode.pro/8f4a2b1c3d5e6f7a8b9c0d1e2f3a4b5c');
   const [isConnected, setIsConnected] = useState(true);
   const [isTesting, setIsTesting] = useState(false);
   const [metrics, setMetrics] = useState<NodeMetrics>({
@@ -50,12 +49,6 @@ export default function NodeTab() {
     alert('Соединение успешно! Node работает стабильно.');
   };
 
-  // Копирование endpoint
-  const handleCopyEndpoint = () => {
-    navigator.clipboard.writeText(endpoint);
-    alert('Endpoint скопирован в буфер обмена!');
-  };
-
   // Получение цвета для latency
   const getLatencyColor = () => {
     if (metrics.latency < 100) return 'success';
@@ -79,7 +72,7 @@ export default function NodeTab() {
         className="glass rounded-xl p-4 flex flex-wrap items-center gap-4"
       >
         <h2 className="text-xl font-bold text-gradient flex-shrink-0">
-          🌐 RPC Node (QuickNode)
+          🌐 RPC Node
         </h2>
         <div className="flex items-center gap-2 ml-auto">
           <div
@@ -95,42 +88,11 @@ export default function NodeTab() {
         </div>
       </motion.div>
 
-      {/* БЛОК 2: ENDPOINT ИНФОРМАЦИЯ */}
+      {/* БЛОК 2: МЕТРИКИ */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="glass rounded-xl p-6"
-      >
-        <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-          🔗 Endpoint
-        </h3>
-
-        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4">
-          <div className="flex-1 min-w-0">
-            <p className="text-xs text-[var(--text-muted)] mb-2 uppercase tracking-wider">
-              RPC URL
-            </p>
-            <p className="font-mono text-[var(--primary)] text-sm break-all select-all bg-[var(--bg-tertiary)] px-4 py-3 rounded-lg border border-[var(--border-color)]">
-              {endpoint}
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <button
-              onClick={handleCopyEndpoint}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--primary)]/20 text-[var(--primary)] text-sm font-medium hover:bg-[var(--primary)]/30 transition-colors"
-            >
-              📋 Копировать
-            </button>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* БЛОК 3: МЕТРИКИ */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
       >
         <MetricCard
@@ -159,11 +121,11 @@ export default function NodeTab() {
         />
       </motion.div>
 
-      {/* БЛОК 4: ТЕСТ СОЕДИНЕНИЯ */}
+      {/* БЛОК 3: ТЕСТ СОЕДИНЕНИЯ */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
+        transition={{ delay: 0.2 }}
         className="glass rounded-xl p-6"
       >
         <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
@@ -196,11 +158,11 @@ export default function NodeTab() {
         )}
       </motion.div>
 
-      {/* БЛОК 5: ГРАФИК RPS (PLACEHOLDER) */}
+      {/* БЛОК 4: ГРАФИК RPS (PLACEHOLDER) */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
+        transition={{ delay: 0.3 }}
         className="glass rounded-xl overflow-hidden"
       >
         <div className="bg-[var(--bg-tertiary)] px-6 py-4 border-b border-[var(--border-color)]">
@@ -236,11 +198,11 @@ export default function NodeTab() {
         </div>
       </motion.div>
 
-      {/* БЛОК 6: ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ */}
+      {/* БЛОК 5: ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
+        transition={{ delay: 0.4 }}
         className="glass rounded-xl p-6"
       >
         <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
@@ -248,7 +210,7 @@ export default function NodeTab() {
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <InfoRow label="Provider" value="QuickNode" />
+          <InfoRow label="Provider" value="Private Node" />
           <InfoRow label="Network" value="BSC Mainnet" />
           <InfoRow label="Chain ID" value="56" />
           <InfoRow label="Protocol" value="HTTPS/WSS" />
