@@ -1,0 +1,7 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Замок -->
+  <path d="M24 28 L24 20 Q24 12 32 12 Q40 12 40 20 L40 28" stroke="#f59e0b" stroke-width="3" fill="none"/>
+  <rect x="20" y="28" width="24" height="20" rx="2" fill="#f59e0b"/>
+  <circle cx="32" cy="38" r="4" fill="#fff"/>
+  <rect x="30" y="38" width="4" height="8" fill="#fff"/>
+</svg>

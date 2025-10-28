@@ -1,0 +1,12 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Кролик с медалью -->
+  <ellipse cx="32" cy="36" rx="12" ry="14" fill="#10b981"/>
+  <circle cx="32" cy="32" r="10" fill="#10b981" stroke="#22c55e" stroke-width="2"/>
+  <ellipse cx="22" cy="18" rx="3" ry="8" fill="#10b981"/>
+  <ellipse cx="42" cy="18" rx="3" ry="8" fill="#10b981"/>
+  <circle cx="28" cy="30" r="2" fill="#fff"/>
+  <circle cx="36" cy="30" r="2" fill="#fff"/>
+  <path d="M30 36 Q32 38 34 36" stroke="#fff" stroke-width="1.5" fill="none"/>
+  <circle cx="32" cy="50" r="6" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+  <path d="M32 47 L33 50 L30 50 Z" fill="#f59e0b"/>
+</svg>

@@ -1,0 +1,11 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Часы с монетой -->
+  <circle cx="28" cy="28" r="16" fill="#9D4EDD" stroke="#7b2cbf" stroke-width="2"/>
+  <circle cx="28" cy="28" r="14" fill="none" stroke="#fff" stroke-width="1.5"/>
+  <line x1="28" y1="28" x2="28" y2="18" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  <line x1="28" y1="28" x2="36" y2="28" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="28" cy="28" r="2" fill="#fff"/>
+
+  <circle cx="44" cy="44" r="12" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+  <text x="44" y="50" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">P</text>
+</svg>
