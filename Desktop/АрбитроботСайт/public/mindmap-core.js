@@ -126,105 +126,210 @@ class MindMapCore {
     }
 
     /**
-     * Setup mind map data structure - ArbitroBot specific
+     * Setup mind map data structure - ArbitroBot User Journey to Profit
      */
     setupData() {
         // Define all nodes in the mind map
         this.nodes = [
-            // Core
-            { id: 'core', label: 'ArbitroBot', type: 'core', x: 700, y: 450, icon: '🤖', description: 'Арбитражная платформа' },
+            // ===== ЦЕНТРАЛЬНЫЙ УЗЕЛ =====
+            {
+                id: 'core',
+                label: 'ARBITRAGEBOT',
+                type: 'core',
+                x: 700,
+                y: 450,
+                svgIcon: '/assets/icons-arbitrage/robot.svg',
+                description: '30-72.8% доход в день\nВысокочастотный торговый бот'
+            },
 
-            // Main sections
-            { id: 'monitoring', label: 'Мониторинг', type: 'page', x: 400, y: 250, icon: '📊', description: 'Real-time мониторинг' },
-            { id: 'bot-control', label: 'Панель бота', type: 'page', x: 1000, y: 250, icon: '🎛️', description: 'Управление ботом' },
-            { id: 'user-dashboard', label: 'Личный кабинет', type: 'page', x: 700, y: 150, icon: '👤', description: 'Dashboard пользователя' },
-            { id: 'about', label: 'О проекте', type: 'page', x: 300, y: 450, icon: 'ℹ️', description: 'Информация' },
-            { id: 'faq', label: 'FAQ', type: 'page', x: 1100, y: 450, icon: '❓', description: 'Частые вопросы' },
+            // ===== УРОВЕНЬ 1: ВХОДНЫЕ ТРЕБОВАНИЯ =====
+            {
+                id: 'plex-holding',
+                label: 'PLEX Холдинг',
+                type: 'requirement',
+                x: 350,
+                y: 280,
+                svgIcon: '/assets/icons-arbitrage/safe.svg',
+                description: '5,000-25,000+ PLEX\nОпределяет количество сумм\n⚠️ Продажа = остановка бота'
+            },
+            {
+                id: 'nft-rabbits',
+                label: 'Кролики DEXRabbit',
+                type: 'requirement',
+                x: 1050,
+                y: 280,
+                svgIcon: '/assets/icons-arbitrage/rabbit.svg',
+                description: '1-15+ кроликов NFT\nВторой фактор авторизации\n💰 Бонус: доход 500-1300% за 120 дней'
+            },
+            {
+                id: 'deposit',
+                label: 'Депозит USDT',
+                type: 'requirement',
+                x: 350,
+                y: 620,
+                svgIcon: '/assets/icons-arbitrage/coins.svg',
+                description: 'От $100 до $10,000+\nРекомендуется $500-1,000\n🔄 Изменение = сброс прогресса'
+            },
+            {
+                id: 'commission',
+                label: 'Комиссия 10 PLEX/$1',
+                type: 'requirement',
+                x: 1050,
+                y: 620,
+                svgIcon: '/assets/icons-arbitrage/clock-coin.svg',
+                description: 'Оплачивается КАЖДЫЙ ДЕНЬ\n📅 Без выходных и праздников\nНеуплата = остановка бота'
+            },
 
-            // Monitoring features
-            { id: 'real-time', label: 'Real-time данные', type: 'feature', x: 200, y: 150, icon: '⚡', description: 'WebSocket подключение' },
-            { id: 'transactions', label: 'Транзакции', type: 'feature', x: 250, y: 350, icon: '📝', description: 'История операций' },
-            { id: 'user-stats', label: 'Статистика', type: 'feature', x: 400, y: 100, icon: '📈', description: 'Аналитика пользователя' },
+            // ===== УРОВЕНЬ 2: ВРЕМЕННАЯ ШКАЛА =====
+            {
+                id: 'week1',
+                label: 'Неделя 1',
+                type: 'timeline',
+                x: 1150,
+                y: 200,
+                svgIcon: '/assets/icons-arbitrage/sprout.svg',
+                description: '0.5% в день\n$5/день при $1,000\nАдаптация системы'
+            },
+            {
+                id: 'week2',
+                label: 'Неделя 2',
+                type: 'timeline',
+                x: 1150,
+                y: 280,
+                svgIcon: '/assets/icons-arbitrage/young-tree.svg',
+                description: '2% в день\n$20/день при $1,000\nОптимизация алгоритмов'
+            },
+            {
+                id: 'week3',
+                label: 'Неделя 3',
+                type: 'timeline',
+                x: 1150,
+                y: 360,
+                svgIcon: '/assets/icons-arbitrage/tree.svg',
+                description: '4% в день\n$40/день при $1,000\nСтабильная работа'
+            },
+            {
+                id: 'week4',
+                label: 'Неделя 4',
+                type: 'timeline',
+                x: 1150,
+                y: 440,
+                svgIcon: '/assets/icons-arbitrage/fruit-tree.svg',
+                description: '12% в день\n$120/день при $1,000\nПолная мощность'
+            },
+            {
+                id: 'week5',
+                label: 'Неделя 5+',
+                type: 'timeline',
+                x: 1150,
+                y: 520,
+                svgIcon: '/assets/icons-arbitrage/money-tree.svg',
+                description: 'До 72.8% в день\nДо $728/день при $1,000\nПик доходности'
+            },
+            {
+                id: 'month3',
+                label: 'Месяц 3',
+                type: 'timeline',
+                x: 1150,
+                y: 600,
+                svgIcon: '/assets/icons-arbitrage/balance.svg',
+                description: 'БЕЗУБЫТОК\nПокрытие всех затрат\nНачало чистой прибыли'
+            },
 
-            // Bot control features
-            { id: 'dashboard-tab', label: 'Dashboard', type: 'feature', x: 1150, y: 150, icon: '📊', description: 'Обзор состояния' },
-            { id: 'wallet-tab', label: 'Кошелёк', type: 'feature', x: 1200, y: 250, icon: '💰', description: 'Управление средствами' },
-            { id: 'scanner-tab', label: 'Сканер', type: 'feature', x: 1250, y: 350, icon: '🔍', description: 'Поиск возможностей' },
-            { id: 'contract-tab', label: 'Контракты', type: 'feature', x: 900, y: 100, icon: '📄', description: 'Smart contracts' },
-            { id: 'statistics-tab', label: 'Статистика', type: 'feature', x: 850, y: 200, icon: '📊', description: 'Детальная аналитика' },
-            { id: 'decisions-tab', label: 'Решения', type: 'feature', x: 950, y: 350, icon: '🎯', description: 'Торговые решения' },
-            { id: 'lists-tab', label: 'Списки токенов', type: 'feature', x: 1050, y: 400, icon: '📋', description: 'White/Black/Gray lists' },
-            { id: 'arbitrage-tab', label: 'Арбитраж', type: 'feature', x: 1150, y: 500, icon: '💹', description: 'Арбитражные пары' },
-            { id: 'node-tab', label: 'Ноды', type: 'feature', x: 1000, y: 550, icon: '🌐', description: 'RPC подключения' },
-            { id: 'terminal-tab', label: 'Терминал', type: 'feature', x: 850, y: 500, icon: '💻', description: 'Консоль управления' },
+            // ===== УРОВЕНЬ 3: ЖЕЛЕЗНЫЕ ПРАВИЛА =====
+            {
+                id: 'rule1',
+                label: 'ЗАПРЕТ продажи',
+                type: 'rule',
+                x: 250,
+                y: 350,
+                svgIcon: '/assets/icons-arbitrage/stop.svg',
+                description: 'Продал 1 PLEX из холдинга?\n→ Бот останавливается НАВСЕГДА\nПсихологический замок против продаж'
+            },
+            {
+                id: 'rule2',
+                label: 'Фиксированный депозит',
+                type: 'rule',
+                x: 250,
+                y: 450,
+                svgIcon: '/assets/icons-arbitrage/lock.svg',
+                description: 'Изменил размер суммы?\n→ Прогресс недель сбрасывается\nМожно вывести отдельные суммы'
+            },
+            {
+                id: 'rule3',
+                label: 'Ежедневная оплата',
+                type: 'rule',
+                x: 250,
+                y: 550,
+                svgIcon: '/assets/icons-arbitrage/calendar.svg',
+                description: 'Пропустил оплату комиссии?\n→ Бот останавливается\n→ Потеря времени в градации'
+            },
 
-            // Technology & Data sources
-            { id: 'bsc', label: 'BNB Chain', type: 'data', x: 500, y: 700, icon: '⛓️', description: 'Blockchain сеть' },
-            { id: 'websocket', label: 'WebSocket', type: 'data', x: 700, y: 750, icon: '🔌', description: 'Real-time соединение' },
-            { id: 'api', label: 'REST API', type: 'data', x: 900, y: 700, icon: '🔗', description: 'HTTP API' },
-            { id: 'dex', label: 'DEX биржи', type: 'data', x: 300, y: 700, icon: '🔄', description: 'PancakeSwap, Biswap' },
-
-            // Conditions and Requirements
-            { id: 'condition-access', label: 'Открытый доступ', type: 'condition', x: 150, y: 550, icon: '🔓', description: 'Без регистрации' },
-            { id: 'condition-mobile', label: 'Мобильная версия', type: 'condition', x: 1250, y: 600, icon: '📱', description: 'Адаптивный дизайн' },
-            { id: 'condition-flash', label: 'Flash Loans', type: 'condition', x: 500, y: 550, icon: '⚡', description: 'Безрисковые займы' },
-            { id: 'condition-security', label: 'Безопасность', type: 'condition', x: 900, y: 600, icon: '🔐', description: 'Защита средств' },
-
-            // User Journey
-            { id: 'user-new', label: 'Новые пользователи', type: 'feature', x: 200, y: 600, icon: '👶', description: 'Начало работы' },
-            { id: 'user-advanced', label: 'Опытные трейдеры', type: 'feature', x: 1100, y: 650, icon: '🎓', description: 'Расширенные функции' },
+            // ===== УРОВЕНЬ 4: ИТОГОВЫЕ РЕЗУЛЬТАТЫ =====
+            {
+                id: 'result-bot',
+                label: 'Прибыль от бота',
+                type: 'result',
+                x: 450,
+                y: 750,
+                svgIcon: '/assets/icons-arbitrage/chart.svg',
+                description: '~$360,000 за 6 месяцев\nПри депозите $1,000\nРеальная торговая прибыль'
+            },
+            {
+                id: 'result-plex',
+                label: 'Рост холдинга PLEX',
+                type: 'result',
+                x: 700,
+                y: 750,
+                svgIcon: '/assets/icons-arbitrage/rocket.svg',
+                description: '15,000 PLEX × $50 = $750,000\nПрогнозируемый рост токена\nДолгосрочная инвестиция'
+            },
+            {
+                id: 'result-total',
+                label: 'ИТОГО',
+                type: 'result',
+                x: 950,
+                y: 750,
+                svgIcon: '/assets/icons-arbitrage/trophy.svg',
+                description: '$1,100,000+ возможно\nROI: 110,150%\n⚠️ Требует терпения первые 2.5 месяца'
+            },
         ];
 
         // Define connections between nodes
         this.links = [
-            // Core connections
-            { source: 'core', target: 'monitoring' },
-            { source: 'core', target: 'bot-control' },
-            { source: 'core', target: 'user-dashboard' },
-            { source: 'core', target: 'about' },
-            { source: 'core', target: 'faq' },
+            // Центр → Входные требования
+            { source: 'core', target: 'plex-holding' },
+            { source: 'core', target: 'nft-rabbits' },
+            { source: 'core', target: 'deposit' },
+            { source: 'core', target: 'commission' },
 
-            // Monitoring connections
-            { source: 'monitoring', target: 'real-time' },
-            { source: 'monitoring', target: 'transactions' },
-            { source: 'monitoring', target: 'user-stats' },
+            // Центр → Временная шкала (последовательная)
+            { source: 'core', target: 'week1' },
+            { source: 'week1', target: 'week2' },
+            { source: 'week2', target: 'week3' },
+            { source: 'week3', target: 'week4' },
+            { source: 'week4', target: 'week5' },
+            { source: 'week5', target: 'month3' },
 
-            // Bot control connections
-            { source: 'bot-control', target: 'dashboard-tab' },
-            { source: 'bot-control', target: 'wallet-tab' },
-            { source: 'bot-control', target: 'scanner-tab' },
-            { source: 'bot-control', target: 'contract-tab' },
-            { source: 'bot-control', target: 'statistics-tab' },
-            { source: 'bot-control', target: 'decisions-tab' },
-            { source: 'bot-control', target: 'lists-tab' },
-            { source: 'bot-control', target: 'arbitrage-tab' },
-            { source: 'bot-control', target: 'node-tab' },
-            { source: 'bot-control', target: 'terminal-tab' },
+            // Центр → Железные правила
+            { source: 'core', target: 'rule1' },
+            { source: 'core', target: 'rule2' },
+            { source: 'core', target: 'rule3' },
 
-            // Data source connections
-            { source: 'real-time', target: 'websocket' },
-            { source: 'scanner-tab', target: 'dex' },
-            { source: 'arbitrage-tab', target: 'dex' },
-            { source: 'wallet-tab', target: 'bsc' },
-            { source: 'contract-tab', target: 'bsc' },
-            { source: 'transactions', target: 'api' },
-            { source: 'node-tab', target: 'bsc' },
+            // Правила связаны с требованиями
+            { source: 'rule1', target: 'plex-holding' },
+            { source: 'rule2', target: 'deposit' },
+            { source: 'rule3', target: 'commission' },
 
-            // Condition connections
-            { source: 'monitoring', target: 'condition-access' },
-            { source: 'core', target: 'condition-mobile' },
-            { source: 'arbitrage-tab', target: 'condition-flash' },
-            { source: 'wallet-tab', target: 'condition-security' },
+            // Временная шкала → Результаты
+            { source: 'month3', target: 'result-bot' },
+            { source: 'month3', target: 'result-plex' },
+            { source: 'result-bot', target: 'result-total' },
+            { source: 'result-plex', target: 'result-total' },
 
-            // User journey connections
-            { source: 'user-new', target: 'monitoring' },
-            { source: 'user-new', target: 'about' },
-            { source: 'user-new', target: 'faq' },
-            { source: 'user-advanced', target: 'bot-control' },
-            { source: 'user-advanced', target: 'user-dashboard' },
-
-            // Cross connections
-            { source: 'user-dashboard', target: 'user-stats' },
+            // Входные требования влияют на результаты
+            { source: 'plex-holding', target: 'result-plex' },
+            { source: 'deposit', target: 'result-bot' },
         ];
     }
 

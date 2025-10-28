@@ -63,16 +63,30 @@ const MindMapRender = {
 
         group.appendChild(circle);
 
-        // Node icon
-        const icon = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        icon.setAttribute('text-anchor', 'middle');
-        icon.setAttribute('dy', '0.35em');
-        icon.setAttribute('class', 'node-icon');
-        icon.setAttribute('font-size', node.type === 'core' ? '36' : '24');
-        icon.setAttribute('fill', '#fff');
-        icon.textContent = node.icon;
-        icon.setAttribute('pointer-events', 'none');
-        group.appendChild(icon);
+        // Node icon (SVG image or text fallback)
+        if (node.svgIcon) {
+            const iconSize = node.type === 'core' ? 40 : 28;
+            const icon = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+            icon.setAttribute('href', node.svgIcon);
+            icon.setAttribute('x', -iconSize / 2);
+            icon.setAttribute('y', -iconSize / 2);
+            icon.setAttribute('width', iconSize);
+            icon.setAttribute('height', iconSize);
+            icon.setAttribute('class', 'node-icon-svg');
+            icon.setAttribute('pointer-events', 'none');
+            group.appendChild(icon);
+        } else if (node.icon) {
+            // Fallback to emoji/text icon
+            const icon = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            icon.setAttribute('text-anchor', 'middle');
+            icon.setAttribute('dy', '0.35em');
+            icon.setAttribute('class', 'node-icon');
+            icon.setAttribute('font-size', node.type === 'core' ? '36' : '24');
+            icon.setAttribute('fill', '#fff');
+            icon.textContent = node.icon;
+            icon.setAttribute('pointer-events', 'none');
+            group.appendChild(icon);
+        }
 
         // Node label
         const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -83,14 +97,20 @@ const MindMapRender = {
         label.setAttribute('pointer-events', 'none');
         group.appendChild(label);
 
-        // Node description (shown on hover)
-        const desc = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        desc.setAttribute('text-anchor', 'middle');
-        desc.setAttribute('dy', this.getNodeRadius(node.type) + 40);
-        desc.setAttribute('class', 'node-description');
-        desc.textContent = node.description;
-        desc.setAttribute('pointer-events', 'none');
-        group.appendChild(desc);
+        // Node description (multiline, shown on hover)
+        if (node.description) {
+            const lines = node.description.split('\n');
+            const startY = this.getNodeRadius(node.type) + 40;
+            lines.forEach((line, index) => {
+                const desc = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                desc.setAttribute('text-anchor', 'middle');
+                desc.setAttribute('y', startY + (index * 16));
+                desc.setAttribute('class', 'node-description');
+                desc.textContent = line;
+                desc.setAttribute('pointer-events', 'none');
+                group.appendChild(desc);
+            });
+        }
 
         // Event listeners
         group.addEventListener('mouseenter', () => this.onNodeHover(core, node, group, true));
@@ -113,6 +133,11 @@ const MindMapRender = {
     getNodeRadius(type) {
         const radii = {
             core: 50,
+            requirement: 38,
+            timeline: 35,
+            rule: 35,
+            result: 40,
+            // Legacy types (fallback)
             page: 40,
             feature: 30,
             data: 30,
@@ -127,6 +152,11 @@ const MindMapRender = {
     getNodeFill(type) {
         const fills = {
             core: 'url(#coreGradient)',
+            requirement: 'url(#requirementGradient)',
+            timeline: 'url(#timelineGradient)',
+            rule: 'url(#ruleGradient)',
+            result: 'url(#resultGradient)',
+            // Legacy types (fallback)
             page: 'url(#pageGradient)',
             feature: 'url(#featureGradient)',
             data: 'url(#dataGradient)',
@@ -140,7 +170,12 @@ const MindMapRender = {
      */
     getNodeStroke(type) {
         const strokes = {
-            core: '#ff6b6b',
+            core: '#00D9FF',
+            requirement: '#3b82f6',
+            timeline: '#22c55e',
+            rule: '#ef4444',
+            result: '#fbbf24',
+            // Legacy types (fallback)
             page: '#4a9eff',
             feature: '#51cf66',
             data: '#ffd93d',

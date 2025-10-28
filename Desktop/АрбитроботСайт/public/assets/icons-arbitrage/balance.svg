@@ -1,0 +1,16 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Весы в балансе -->
+  <line x1="32" y1="18" x2="32" y2="42" stroke="#3b82f6" stroke-width="3"/>
+  <circle cx="32" cy="42" r="4" fill="#3b82f6"/>
+  <line x1="16" y1="18" x2="48" y2="18" stroke="#3b82f6" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Левая чаша -->
+  <path d="M16 18 L12 28 L20 28 Z" fill="#10b981" stroke="#22c55e" stroke-width="1.5"/>
+  <line x1="12" y1="28" x2="20" y2="28" stroke="#22c55e" stroke-width="2"/>
+
+  <!-- Правая чаша -->
+  <path d="M48 18 L44 28 L52 28 Z" fill="#10b981" stroke="#22c55e" stroke-width="1.5"/>
+  <line x1="44" y1="28" x2="52" y2="28" stroke="#22c55e" stroke-width="2"/>
+
+  <rect x="26" y="42" width="12" height="6" fill="#3b82f6"/>
+</svg>

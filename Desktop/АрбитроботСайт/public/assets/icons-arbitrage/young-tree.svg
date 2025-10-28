@@ -1,0 +1,10 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Молодое дерево (неделя 2) -->
+  <rect x="28" y="38" width="8" height="14" fill="#78350f"/>
+  <circle cx="32" cy="26" r="12" fill="#22c55e" opacity="0.3"/>
+  <circle cx="32" cy="26" r="10" fill="#22c55e" opacity="0.5"/>
+  <circle cx="32" cy="26" r="8" fill="#22c55e"/>
+  <circle cx="26" cy="24" r="3" fill="#10b981"/>
+  <circle cx="38" cy="24" r="3" fill="#10b981"/>
+  <circle cx="32" cy="20" r="3" fill="#10b981"/>
+</svg>

@@ -10,13 +10,46 @@ export default function MindMapPage() {
   useEffect(() => {
     setIsMounted(true);
 
-    // Initialize mind map after component mounts
-    if (typeof window !== 'undefined' && window.mindMap) {
-      // Wait for DOM to be ready
-      setTimeout(() => {
-        window.mindMap.init();
-      }, 100);
-    }
+    // Load mindmap CSS
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/styles-mindmap.css';
+    document.head.appendChild(link);
+
+    // Load mindmap scripts in order
+    const loadScript = (src: string) => {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = false; // Ensure scripts load in order
+        script.onload = resolve;
+        script.onerror = reject;
+        document.body.appendChild(script);
+      });
+    };
+
+    // Load scripts sequentially
+    loadScript('/mindmap-core.js')
+      .then(() => loadScript('/mindmap-render.js'))
+      .then(() => loadScript('/mindmap.js'))
+      .then(() => {
+        // Initialize mind map after all scripts are loaded
+        if (typeof window !== 'undefined' && window.mindMap) {
+          setTimeout(() => {
+            window.mindMap.init();
+          }, 100);
+        }
+      })
+      .catch(error => {
+        console.error('Error loading mindmap scripts:', error);
+      });
+
+    // Cleanup
+    return () => {
+      if (link.parentNode) {
+        link.parentNode.removeChild(link);
+      }
+    };
   }, []);
 
   if (!isMounted) {
@@ -49,7 +82,7 @@ export default function MindMapPage() {
             </span>
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Визуализация всех возможностей и функций платформы для работы с арбитражным ботом
+            Путь пользователя к прибыли: от входных требований до доходности 72.8% в день
           </p>
         </motion.div>
 
@@ -91,31 +124,19 @@ export default function MindMapPage() {
           transition={{ delay: 0.3 }}
           className="mindmap-controls"
         >
-          <button
-            id="mindmapZoomIn"
-            className="mindmap-btn"
-          >
+          <button id="mindmapZoomIn" className="mindmap-btn">
             <span>🔍</span>
             <span>Увеличить</span>
           </button>
-          <button
-            id="mindmapZoomOut"
-            className="mindmap-btn"
-          >
+          <button id="mindmapZoomOut" className="mindmap-btn">
             <span>🔎</span>
             <span>Уменьшить</span>
           </button>
-          <button
-            id="mindmapCenter"
-            className="mindmap-btn"
-          >
+          <button id="mindmapCenter" className="mindmap-btn">
             <span>🎯</span>
             <span>Центрировать</span>
           </button>
-          <button
-            id="mindmapReset"
-            className="mindmap-btn"
-          >
+          <button id="mindmapReset" className="mindmap-btn">
             <span>↺</span>
             <span>Сброс</span>
           </button>
@@ -128,12 +149,7 @@ export default function MindMapPage() {
           transition={{ delay: 0.4 }}
           className="mindmap-container"
         >
-          <svg
-            id="mindmapSvg"
-            className="mindmap-svg"
-            viewBox="0 0 1400 900"
-          >
-            {/* Define gradients and filters */}
+          <svg id="mindmapSvg" className="mindmap-svg" viewBox="0 0 1400 900">
             <defs>
               {/* Glow filter */}
               <filter id="glow">
@@ -144,12 +160,33 @@ export default function MindMapPage() {
                 </feMerge>
               </filter>
 
-              {/* Node gradients */}
+              {/* Node gradients - ArbitroBot Journey */}
               <radialGradient id="coreGradient">
-                <stop offset="0%" stopColor="#ff6b6b"/>
-                <stop offset="100%" stopColor="#ee5a6f"/>
+                <stop offset="0%" stopColor="#00D9FF"/>
+                <stop offset="100%" stopColor="#0891b2"/>
               </radialGradient>
 
+              <radialGradient id="requirementGradient">
+                <stop offset="0%" stopColor="#3b82f6"/>
+                <stop offset="100%" stopColor="#1e3a8a"/>
+              </radialGradient>
+
+              <radialGradient id="timelineGradient">
+                <stop offset="0%" stopColor="#22c55e"/>
+                <stop offset="100%" stopColor="#10b981"/>
+              </radialGradient>
+
+              <radialGradient id="ruleGradient">
+                <stop offset="0%" stopColor="#ef4444"/>
+                <stop offset="100%" stopColor="#dc2626"/>
+              </radialGradient>
+
+              <radialGradient id="resultGradient">
+                <stop offset="0%" stopColor="#fbbf24"/>
+                <stop offset="100%" stopColor="#f59e0b"/>
+              </radialGradient>
+
+              {/* Legacy gradients (fallback) */}
               <radialGradient id="pageGradient">
                 <stop offset="0%" stopColor="#4a9eff"/>
                 <stop offset="100%" stopColor="#357abd"/>
@@ -185,27 +222,27 @@ export default function MindMapPage() {
         >
           <div className="legend-item">
             <div className="legend-color legend-core"></div>
-            <span>Центральный узел</span>
+            <span>ArbitroBot</span>
           </div>
           <div className="legend-item">
-            <div className="legend-color legend-page"></div>
-            <span>Страницы и разделы</span>
+            <div className="legend-color legend-requirement"></div>
+            <span>Входные требования</span>
           </div>
           <div className="legend-item">
-            <div className="legend-color legend-feature"></div>
-            <span>Функциональность</span>
+            <div className="legend-color legend-timeline"></div>
+            <span>Временная шкала</span>
           </div>
           <div className="legend-item">
-            <div className="legend-color legend-data"></div>
-            <span>Данные и источники</span>
+            <div className="legend-color legend-rule"></div>
+            <span>Железные правила</span>
           </div>
           <div className="legend-item">
-            <div className="legend-color" style={{ background: '#9D4EDD' }}></div>
-            <span>Условия и требования</span>
+            <div className="legend-color legend-result"></div>
+            <span>Итоговые результаты</span>
           </div>
         </motion.div>
 
-        {/* Additional Information */}
+        {/* User Journey Information */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -213,78 +250,132 @@ export default function MindMapPage() {
           className="mt-12 bg-[#13131A] rounded-2xl p-8 border border-[#00D9FF]/20"
         >
           <h2 className="text-3xl font-bold text-gradient mb-6">
-            Работа с ArbitroBot
+            Путь к прибыли с ArbitroBot
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-xl font-semibold text-[#00D9FF] mb-4">
-                Для новичков
+              <h3 className="text-xl font-semibold text-[#3b82f6] mb-4">
+                Входные требования
               </h3>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start gap-2">
-                  <span className="text-[#00FFA3] mt-1">✓</span>
-                  <span>Откройте страницу мониторинга для просмотра транзакций в реальном времени</span>
+                  <span className="text-[#00FFA3] mt-1">→</span>
+                  <span><strong>PLEX холдинг:</strong> 5,000-25,000+ токенов определяют количество &quot;сумм&quot;</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#00FFA3] mt-1">✓</span>
-                  <span>Изучите статистику работы бота на главной странице</span>
+                  <span className="text-[#00FFA3] mt-1">→</span>
+                  <span><strong>DEXRabbit NFT:</strong> 1-15+ кроликов как второй фактор авторизации</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#00FFA3] mt-1">✓</span>
-                  <span>Ознакомьтесь с FAQ для понимания арбитражной торговли</span>
+                  <span className="text-[#00FFA3] mt-1">→</span>
+                  <span><strong>Депозит USDT:</strong> от $100, рекомендуется $500-1,000</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#00FFA3] mt-1">✓</span>
-                  <span>Наблюдайте за успешными сделками других пользователей</span>
+                  <span className="text-[#00FFA3] mt-1">→</span>
+                  <span><strong>Ежедневная комиссия:</strong> 10 PLEX за каждый $1 депозита</span>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-xl font-semibold text-[#9D4EDD] mb-4">
-                Для опытных пользователей
+              <h3 className="text-xl font-semibold text-[#22c55e] mb-4">
+                Временная шкала доходности
               </h3>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start gap-2">
-                  <span className="text-[#00FFA3] mt-1">✓</span>
-                  <span>Получите доступ к панели управления ботом (/bot)</span>
+                  <span className="text-[#10b981] mt-1">•</span>
+                  <span><strong>Неделя 1:</strong> 0.5% в день - адаптация системы</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#00FFA3] mt-1">✓</span>
-                  <span>Настройте параметры сканера и фильтры токенов</span>
+                  <span className="text-[#10b981] mt-1">•</span>
+                  <span><strong>Неделя 2:</strong> 2% в день - оптимизация алгоритмов</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#00FFA3] mt-1">✓</span>
-                  <span>Управляйте белыми/черными списками токенов</span>
+                  <span className="text-[#10b981] mt-1">•</span>
+                  <span><strong>Неделя 3:</strong> 4% в день - стабильная работа</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#00FFA3] mt-1">✓</span>
-                  <span>Анализируйте детальную статистику и принимайте решения</span>
+                  <span className="text-[#22c55e] mt-1">•</span>
+                  <span><strong>Неделя 4:</strong> 12% в день - полная мощность</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#22c55e] mt-1">★</span>
+                  <span><strong>Неделя 5+:</strong> до 72.8% в день - пик доходности</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#fbbf24] mt-1">⚖️</span>
+                  <span><strong>Месяц 3:</strong> БЕЗУБЫТОК - начало чистой прибыли</span>
                 </li>
               </ul>
             </div>
           </div>
+
+          <div className="mt-8 p-6 bg-gradient-to-r from-[#ef4444]/10 to-[#dc2626]/10 border border-[#ef4444]/30 rounded-xl">
+            <h3 className="text-xl font-semibold text-[#ef4444] mb-4">
+              ⚠️ Железные правила (критически важно!)
+            </h3>
+            <ul className="space-y-3 text-gray-300">
+              <li className="flex items-start gap-2">
+                <span className="text-[#ef4444] mt-1">🛑</span>
+                <span><strong>ЗАПРЕТ продажи PLEX:</strong> Продал даже 1 PLEX из холдинга → бот останавливается НАВСЕГДА</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#f59e0b] mt-1">🔒</span>
+                <span><strong>Фиксированный депозит:</strong> Изменил размер суммы → прогресс недель сбрасывается</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#fbbf24] mt-1">📅</span>
+                <span><strong>Ежедневная оплата:</strong> Пропустил комиссию → бот останавливается, потеря прогресса</span>
+              </li>
+            </ul>
+          </div>
         </motion.div>
 
-        {/* Call to Action */}
+        {/* Results Showcase */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
           className="mt-12 text-center"
         >
+          <div className="bg-gradient-to-r from-[#fbbf24]/20 to-[#f59e0b]/20 border border-[#fbbf24]/40 rounded-2xl p-8 mb-8">
+            <h3 className="text-2xl font-bold text-[#fbbf24] mb-4">
+              🏆 Потенциальные результаты через 6 месяцев
+            </h3>
+            <div className="grid md:grid-cols-3 gap-6 text-center">
+              <div>
+                <div className="text-4xl font-bold text-[#22c55e] mb-2">~$360,000</div>
+                <div className="text-sm text-gray-400">Прибыль от бота</div>
+                <div className="text-xs text-gray-500 mt-1">При депозите $1,000</div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold text-[#00D9FF] mb-2">$750,000</div>
+                <div className="text-sm text-gray-400">Рост холдинга PLEX</div>
+                <div className="text-xs text-gray-500 mt-1">15,000 PLEX × $50</div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold text-[#fbbf24] mb-2">$1,100,000+</div>
+                <div className="text-sm text-gray-400">ИТОГО возможно</div>
+                <div className="text-xs text-gray-500 mt-1">ROI: 110,150%</div>
+              </div>
+            </div>
+            <p className="text-sm text-gray-400 mt-6">
+              ⚠️ Требует терпения первые 2.5 месяца для достижения безубытка
+            </p>
+          </div>
+
           <div className="inline-flex flex-wrap gap-4 justify-center">
             <Link
-              href="/bot"
+              href="/"
               className="px-8 py-4 rounded-lg bg-gradient-to-r from-[#00D9FF] to-[#9D4EDD] text-white font-semibold hover:opacity-90 transition-all shadow-lg hover:shadow-[#00D9FF]/50 hover:scale-105"
             >
-              Открыть панель управления →
+              Начать работу с ботом →
             </Link>
             <Link
               href="/about"
               className="px-8 py-4 rounded-lg bg-[#13131A] border border-[#00D9FF]/30 text-[#00D9FF] font-semibold hover:bg-[#00D9FF]/10 transition-all"
             >
-              Узнать больше
+              Узнать больше о проекте
             </Link>
           </div>
         </motion.div>
