@@ -250,28 +250,28 @@ export default function MindMapPage() {
           className="mt-12 bg-[#13131A] rounded-2xl p-8 border border-[#00D9FF]/20"
         >
           <h2 className="text-3xl font-bold text-gradient mb-6">
-            Путь к прибыли с ArbitroBot
+            Пошаговый путь с ArbitroBot
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <h3 className="text-xl font-semibold text-[#3b82f6] mb-4">
-                Входные требования
+                ШАГ 1-2: Подготовка и настройка
               </h3>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start gap-2">
-                  <span className="text-[#00FFA3] mt-1">→</span>
+                  <span className="text-[#00FFA3] mt-1">1️⃣</span>
                   <span><strong>PLEX холдинг:</strong> 5,000-25,000+ токенов определяют количество &quot;сумм&quot;</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#00FFA3] mt-1">→</span>
-                  <span><strong>DEXRabbit NFT:</strong> 1-15+ кроликов как второй фактор авторизации</span>
+                  <span className="text-[#00FFA3] mt-1">1️⃣</span>
+                  <span><strong>Живые кролики:</strong> 1-15+ кроликов в токенизированной ферме</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#00FFA3] mt-1">→</span>
+                  <span className="text-[#00FFA3] mt-1">2️⃣</span>
                   <span><strong>Депозит USDT:</strong> от $100, рекомендуется $500-1,000</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#00FFA3] mt-1">→</span>
+                  <span className="text-[#00FFA3] mt-1">2️⃣</span>
                   <span><strong>Ежедневная комиссия:</strong> 10 PLEX за каждый $1 депозита</span>
                 </li>
               </ul>
@@ -279,24 +279,24 @@ export default function MindMapPage() {
 
             <div>
               <h3 className="text-xl font-semibold text-[#22c55e] mb-4">
-                Временная шкала доходности
+                ШАГ 3: Рост доходности
               </h3>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start gap-2">
                   <span className="text-[#10b981] mt-1">•</span>
-                  <span><strong>Неделя 1:</strong> 0.5% в день - адаптация системы</span>
+                  <span><strong>Неделя 1:</strong> начальная доходность - адаптация системы</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#10b981] mt-1">•</span>
-                  <span><strong>Неделя 2:</strong> 2% в день - оптимизация алгоритмов</span>
+                  <span><strong>Неделя 2:</strong> рост доходности - оптимизация алгоритмов</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#10b981] mt-1">•</span>
-                  <span><strong>Неделя 3:</strong> 4% в день - стабильная работа</span>
+                  <span><strong>Неделя 3:</strong> стабильная работа - регулярная прибыль</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#22c55e] mt-1">•</span>
-                  <span><strong>Неделя 4:</strong> 12% в день - полная мощность</span>
+                  <span><strong>Неделя 4:</strong> полная мощность - высокая доходность</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#22c55e] mt-1">★</span>
@@ -312,20 +312,20 @@ export default function MindMapPage() {
 
           <div className="mt-8 p-6 bg-gradient-to-r from-[#ef4444]/10 to-[#dc2626]/10 border border-[#ef4444]/30 rounded-xl">
             <h3 className="text-xl font-semibold text-[#ef4444] mb-4">
-              ⚠️ Железные правила (критически важно!)
+              ШАГ 4: Важные правила ⚠️
             </h3>
             <ul className="space-y-3 text-gray-300">
               <li className="flex items-start gap-2">
                 <span className="text-[#ef4444] mt-1">🛑</span>
-                <span><strong>ЗАПРЕТ продажи PLEX:</strong> Продал даже 1 PLEX из холдинга → бот останавливается НАВСЕГДА</span>
+                <span><strong>Не продавать PLEX:</strong> Продажа из холдинга останавливает бот НАВСЕГДА</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-[#f59e0b] mt-1">🔒</span>
-                <span><strong>Фиксированный депозит:</strong> Изменил размер суммы → прогресс недель сбрасывается</span>
+                <span><strong>Не менять депозит:</strong> Изменение сбрасывает прогресс недель</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-[#fbbf24] mt-1">📅</span>
-                <span><strong>Ежедневная оплата:</strong> Пропустил комиссию → бот останавливается, потеря прогресса</span>
+                <span><strong>Платить каждый день:</strong> Пропуск комиссии останавливает бот</span>
               </li>
             </ul>
           </div>
@@ -340,27 +340,27 @@ export default function MindMapPage() {
         >
           <div className="bg-gradient-to-r from-[#fbbf24]/20 to-[#f59e0b]/20 border border-[#fbbf24]/40 rounded-2xl p-8 mb-8">
             <h3 className="text-2xl font-bold text-[#fbbf24] mb-4">
-              🏆 Потенциальные результаты через 6 месяцев
+              ШАГ 5: Ожидаемые результаты 🏆
             </h3>
             <div className="grid md:grid-cols-3 gap-6 text-center">
               <div>
-                <div className="text-4xl font-bold text-[#22c55e] mb-2">~$360,000</div>
-                <div className="text-sm text-gray-400">Прибыль от бота</div>
-                <div className="text-xs text-gray-500 mt-1">При депозите $1,000</div>
+                <div className="text-4xl font-bold text-[#22c55e] mb-2">💰</div>
+                <div className="text-sm text-gray-400 font-semibold">Торговая прибыль</div>
+                <div className="text-xs text-gray-500 mt-1">Растет экспоненциально</div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-[#00D9FF] mb-2">$750,000</div>
-                <div className="text-sm text-gray-400">Рост холдинга PLEX</div>
-                <div className="text-xs text-gray-500 mt-1">15,000 PLEX × $50</div>
+                <div className="text-4xl font-bold text-[#00D9FF] mb-2">🚀</div>
+                <div className="text-sm text-gray-400 font-semibold">Рост активов</div>
+                <div className="text-xs text-gray-500 mt-1">Потенциал роста PLEX</div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-[#fbbf24] mb-2">$1,100,000+</div>
-                <div className="text-sm text-gray-400">ИТОГО возможно</div>
-                <div className="text-xs text-gray-500 mt-1">ROI: 110,150%</div>
+                <div className="text-4xl font-bold text-[#fbbf24] mb-2">🎯</div>
+                <div className="text-sm text-gray-400 font-semibold">Значительная прибыль</div>
+                <div className="text-xs text-gray-500 mt-1">Высокий потенциал ROI</div>
               </div>
             </div>
             <p className="text-sm text-gray-400 mt-6">
-              ⚠️ Требует терпения первые 2.5 месяца для достижения безубытка
+              ⚠️ Требует терпения, дисциплины и соблюдения всех правил
             </p>
           </div>
 

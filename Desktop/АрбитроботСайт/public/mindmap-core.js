@@ -126,7 +126,7 @@ class MindMapCore {
     }
 
     /**
-     * Setup mind map data structure - ArbitroBot User Journey to Profit
+     * Setup mind map data structure - ArbitroBot Step-by-Step Journey
      */
     setupData() {
         // Define all nodes in the mind map
@@ -139,197 +139,201 @@ class MindMapCore {
                 x: 700,
                 y: 450,
                 svgIcon: '/assets/icons-arbitrage/robot.svg',
-                description: '30-72.8% доход в день\nВысокочастотный торговый бот'
+                description: 'Путь к высокой доходности\nПошаговая инструкция'
             },
 
-            // ===== УРОВЕНЬ 1: ВХОДНЫЕ ТРЕБОВАНИЯ =====
+            // ===== ШАГ 1: ПОДГОТОВКА =====
             {
-                id: 'plex-holding',
-                label: 'PLEX Холдинг',
+                id: 'step1-plex',
+                label: 'ШАГ 1: PLEX Холдинг',
                 type: 'requirement',
-                x: 350,
-                y: 280,
+                x: 300,
+                y: 250,
                 svgIcon: '/assets/icons-arbitrage/safe.svg',
                 description: '5,000-25,000+ PLEX\nОпределяет количество сумм\n⚠️ Продажа = остановка бота'
             },
             {
-                id: 'nft-rabbits',
-                label: 'Кролики DEXRabbit',
+                id: 'step1-rabbits',
+                label: 'ШАГ 1: Кролики',
                 type: 'requirement',
-                x: 1050,
-                y: 280,
+                x: 1100,
+                y: 250,
                 svgIcon: '/assets/icons-arbitrage/rabbit.svg',
-                description: '1-15+ кроликов NFT\nВторой фактор авторизации\n💰 Бонус: доход 500-1300% за 120 дней'
-            },
-            {
-                id: 'deposit',
-                label: 'Депозит USDT',
-                type: 'requirement',
-                x: 350,
-                y: 620,
-                svgIcon: '/assets/icons-arbitrage/coins.svg',
-                description: 'От $100 до $10,000+\nРекомендуется $500-1,000\n🔄 Изменение = сброс прогресса'
-            },
-            {
-                id: 'commission',
-                label: 'Комиссия 10 PLEX/$1',
-                type: 'requirement',
-                x: 1050,
-                y: 620,
-                svgIcon: '/assets/icons-arbitrage/clock-coin.svg',
-                description: 'Оплачивается КАЖДЫЙ ДЕНЬ\n📅 Без выходных и праздников\nНеуплата = остановка бота'
+                description: '1-15+ живых кроликов\nТокенизированная ферма\n💰 Дополнительный доход за 120 дней'
             },
 
-            // ===== УРОВЕНЬ 2: ВРЕМЕННАЯ ШКАЛА =====
+            // ===== ШАГ 2: НАСТРОЙКА =====
             {
-                id: 'week1',
-                label: 'Неделя 1',
+                id: 'step2-deposit',
+                label: 'ШАГ 2: Депозит',
+                type: 'requirement',
+                x: 300,
+                y: 650,
+                svgIcon: '/assets/icons-arbitrage/coins.svg',
+                description: 'От $100 и выше\nРекомендуется $500-1,000\n🔄 Изменение = сброс прогресса'
+            },
+            {
+                id: 'step2-commission',
+                label: 'ШАГ 2: Комиссия',
+                type: 'requirement',
+                x: 1100,
+                y: 650,
+                svgIcon: '/assets/icons-arbitrage/clock-coin.svg',
+                description: '10 PLEX за каждый $1\nОплата КАЖДЫЙ ДЕНЬ\n📅 Без пропусков'
+            },
+
+            // ===== ШАГ 3: РАБОТА БОТА (ВРЕМЕННАЯ ШКАЛА) =====
+            {
+                id: 'step3-week1',
+                label: 'ШАГ 3: Неделя 1',
                 type: 'timeline',
-                x: 1150,
+                x: 1200,
                 y: 200,
                 svgIcon: '/assets/icons-arbitrage/sprout.svg',
-                description: '0.5% в день\n$5/день при $1,000\nАдаптация системы'
+                description: 'Начальная доходность\nАдаптация системы\nПервые результаты'
             },
             {
-                id: 'week2',
+                id: 'step3-week2',
                 label: 'Неделя 2',
                 type: 'timeline',
-                x: 1150,
-                y: 280,
+                x: 1200,
+                y: 300,
                 svgIcon: '/assets/icons-arbitrage/young-tree.svg',
-                description: '2% в день\n$20/день при $1,000\nОптимизация алгоритмов'
+                description: 'Рост доходности\nОптимизация алгоритмов\nУвеличение прибыли'
             },
             {
-                id: 'week3',
+                id: 'step3-week3',
                 label: 'Неделя 3',
                 type: 'timeline',
-                x: 1150,
-                y: 360,
+                x: 1200,
+                y: 400,
                 svgIcon: '/assets/icons-arbitrage/tree.svg',
-                description: '4% в день\n$40/день при $1,000\nСтабильная работа'
+                description: 'Стабильная работа\nУстойчивый рост\nРегулярная прибыль'
             },
             {
-                id: 'week4',
+                id: 'step3-week4',
                 label: 'Неделя 4',
                 type: 'timeline',
-                x: 1150,
-                y: 440,
+                x: 1200,
+                y: 500,
                 svgIcon: '/assets/icons-arbitrage/fruit-tree.svg',
-                description: '12% в день\n$120/день при $1,000\nПолная мощность'
+                description: 'Полная мощность\nВысокая доходность\nМаксимальная эффективность'
             },
             {
-                id: 'week5',
+                id: 'step3-week5',
                 label: 'Неделя 5+',
                 type: 'timeline',
-                x: 1150,
-                y: 520,
+                x: 1200,
+                y: 600,
                 svgIcon: '/assets/icons-arbitrage/money-tree.svg',
-                description: 'До 72.8% в день\nДо $728/день при $1,000\nПик доходности'
+                description: 'Пиковая доходность\nДо 72.8% в день\nСтабильная прибыль'
             },
             {
-                id: 'month3',
+                id: 'step3-month3',
                 label: 'Месяц 3',
                 type: 'timeline',
-                x: 1150,
-                y: 600,
+                x: 1200,
+                y: 700,
                 svgIcon: '/assets/icons-arbitrage/balance.svg',
                 description: 'БЕЗУБЫТОК\nПокрытие всех затрат\nНачало чистой прибыли'
             },
 
-            // ===== УРОВЕНЬ 3: ЖЕЛЕЗНЫЕ ПРАВИЛА =====
+            // ===== ШАГ 4: ВАЖНЫЕ ПРАВИЛА =====
             {
-                id: 'rule1',
-                label: 'ЗАПРЕТ продажи',
+                id: 'step4-rule1',
+                label: 'ШАГ 4: Не продавать',
                 type: 'rule',
-                x: 250,
+                x: 200,
                 y: 350,
                 svgIcon: '/assets/icons-arbitrage/stop.svg',
-                description: 'Продал 1 PLEX из холдинга?\n→ Бот останавливается НАВСЕГДА\nПсихологический замок против продаж'
+                description: 'ЗАПРЕТ продажи PLEX\nПродал = бот остановится НАВСЕГДА\nПсихологический замок'
             },
             {
-                id: 'rule2',
-                label: 'Фиксированный депозит',
+                id: 'step4-rule2',
+                label: 'Не менять депозит',
                 type: 'rule',
-                x: 250,
+                x: 200,
                 y: 450,
                 svgIcon: '/assets/icons-arbitrage/lock.svg',
-                description: 'Изменил размер суммы?\n→ Прогресс недель сбрасывается\nМожно вывести отдельные суммы'
+                description: 'Фиксированная сумма\nИзменение = сброс прогресса\nДисциплина важна'
             },
             {
-                id: 'rule3',
-                label: 'Ежедневная оплата',
+                id: 'step4-rule3',
+                label: 'Платить каждый день',
                 type: 'rule',
-                x: 250,
+                x: 200,
                 y: 550,
                 svgIcon: '/assets/icons-arbitrage/calendar.svg',
-                description: 'Пропустил оплату комиссии?\n→ Бот останавливается\n→ Потеря времени в градации'
+                description: 'Ежедневная комиссия\nПропуск = остановка бота\nБез выходных'
             },
 
-            // ===== УРОВЕНЬ 4: ИТОГОВЫЕ РЕЗУЛЬТАТЫ =====
+            // ===== ШАГ 5: ОЖИДАЕМЫЕ РЕЗУЛЬТАТЫ =====
             {
-                id: 'result-bot',
-                label: 'Прибыль от бота',
+                id: 'step5-profit',
+                label: 'ШАГ 5: Прибыль',
                 type: 'result',
-                x: 450,
-                y: 750,
+                x: 500,
+                y: 800,
                 svgIcon: '/assets/icons-arbitrage/chart.svg',
-                description: '~$360,000 за 6 месяцев\nПри депозите $1,000\nРеальная торговая прибыль'
+                description: 'Торговая прибыль\nРастет экспоненциально\nРеальный доход'
             },
             {
-                id: 'result-plex',
-                label: 'Рост холдинга PLEX',
+                id: 'step5-growth',
+                label: 'Рост активов',
                 type: 'result',
                 x: 700,
-                y: 750,
+                y: 800,
                 svgIcon: '/assets/icons-arbitrage/rocket.svg',
-                description: '15,000 PLEX × $50 = $750,000\nПрогнозируемый рост токена\nДолгосрочная инвестиция'
+                description: 'Рост холдинга PLEX\nДолгосрочная инвестиция\nПотенциал роста токена'
             },
             {
-                id: 'result-total',
+                id: 'step5-total',
                 label: 'ИТОГО',
                 type: 'result',
-                x: 950,
-                y: 750,
+                x: 900,
+                y: 800,
                 svgIcon: '/assets/icons-arbitrage/trophy.svg',
-                description: '$1,100,000+ возможно\nROI: 110,150%\n⚠️ Требует терпения первые 2.5 месяца'
+                description: 'Значительная прибыль возможна\nВысокий потенциал ROI\n⚠️ Требует терпения и дисциплины'
             },
         ];
 
         // Define connections between nodes
         this.links = [
-            // Центр → Входные требования
-            { source: 'core', target: 'plex-holding' },
-            { source: 'core', target: 'nft-rabbits' },
-            { source: 'core', target: 'deposit' },
-            { source: 'core', target: 'commission' },
+            // Центр → ШАГ 1
+            { source: 'core', target: 'step1-plex' },
+            { source: 'core', target: 'step1-rabbits' },
 
-            // Центр → Временная шкала (последовательная)
-            { source: 'core', target: 'week1' },
-            { source: 'week1', target: 'week2' },
-            { source: 'week2', target: 'week3' },
-            { source: 'week3', target: 'week4' },
-            { source: 'week4', target: 'week5' },
-            { source: 'week5', target: 'month3' },
+            // Центр → ШАГ 2
+            { source: 'core', target: 'step2-deposit' },
+            { source: 'core', target: 'step2-commission' },
 
-            // Центр → Железные правила
-            { source: 'core', target: 'rule1' },
-            { source: 'core', target: 'rule2' },
-            { source: 'core', target: 'rule3' },
+            // Центр → ШАГ 3 (временная шкала - последовательная)
+            { source: 'core', target: 'step3-week1' },
+            { source: 'step3-week1', target: 'step3-week2' },
+            { source: 'step3-week2', target: 'step3-week3' },
+            { source: 'step3-week3', target: 'step3-week4' },
+            { source: 'step3-week4', target: 'step3-week5' },
+            { source: 'step3-week5', target: 'step3-month3' },
+
+            // Центр → ШАГ 4 (правила)
+            { source: 'core', target: 'step4-rule1' },
+            { source: 'core', target: 'step4-rule2' },
+            { source: 'core', target: 'step4-rule3' },
 
             // Правила связаны с требованиями
-            { source: 'rule1', target: 'plex-holding' },
-            { source: 'rule2', target: 'deposit' },
-            { source: 'rule3', target: 'commission' },
+            { source: 'step4-rule1', target: 'step1-plex' },
+            { source: 'step4-rule2', target: 'step2-deposit' },
+            { source: 'step4-rule3', target: 'step2-commission' },
 
-            // Временная шкала → Результаты
-            { source: 'month3', target: 'result-bot' },
-            { source: 'month3', target: 'result-plex' },
-            { source: 'result-bot', target: 'result-total' },
-            { source: 'result-plex', target: 'result-total' },
+            // ШАГ 3 (временная шкала) → ШАГ 5 (результаты)
+            { source: 'step3-month3', target: 'step5-profit' },
+            { source: 'step3-month3', target: 'step5-growth' },
+            { source: 'step5-profit', target: 'step5-total' },
+            { source: 'step5-growth', target: 'step5-total' },
 
             // Входные требования влияют на результаты
-            { source: 'plex-holding', target: 'result-plex' },
-            { source: 'deposit', target: 'result-bot' },
+            { source: 'step1-plex', target: 'step5-growth' },
+            { source: 'step2-deposit', target: 'step5-profit' },
         ];
     }
 
