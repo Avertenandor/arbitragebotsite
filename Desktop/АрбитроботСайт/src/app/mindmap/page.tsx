@@ -14,14 +14,27 @@ export default function MindMapPage() {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = '/styles-mindmap.css';
-    document.head.appendChild(link);
+    link.setAttribute('data-mindmap-css', 'true');
+
+    // Check if CSS already loaded
+    if (!document.querySelector('[data-mindmap-css]')) {
+      document.head.appendChild(link);
+    }
 
     // Load mindmap scripts in order
-    const loadScript = (src: string) => {
+    const loadScript = (src: string, id: string) => {
       return new Promise((resolve, reject) => {
+        // Check if script already exists
+        const existingScript = document.querySelector(`script[data-mindmap-id="${id}"]`);
+        if (existingScript) {
+          resolve(null);
+          return;
+        }
+
         const script = document.createElement('script');
         script.src = src;
         script.async = false; // Ensure scripts load in order
+        script.setAttribute('data-mindmap-id', id);
         script.onload = resolve;
         script.onerror = reject;
         document.body.appendChild(script);
@@ -29,9 +42,9 @@ export default function MindMapPage() {
     };
 
     // Load scripts sequentially
-    loadScript('/mindmap-core.js')
-      .then(() => loadScript('/mindmap-render.js'))
-      .then(() => loadScript('/mindmap.js'))
+    loadScript('/mindmap-core.js', 'core')
+      .then(() => loadScript('/mindmap-render.js', 'render'))
+      .then(() => loadScript('/mindmap.js', 'main'))
       .then(() => {
         // Initialize mind map after all scripts are loaded
         if (typeof window !== 'undefined' && window.mindMap) {
@@ -46,8 +59,26 @@ export default function MindMapPage() {
 
     // Cleanup
     return () => {
-      if (link.parentNode) {
-        link.parentNode.removeChild(link);
+      // Remove CSS
+      const cssLink = document.querySelector('[data-mindmap-css]');
+      if (cssLink?.parentNode) {
+        cssLink.parentNode.removeChild(cssLink);
+      }
+
+      // Remove scripts
+      const scripts = document.querySelectorAll('[data-mindmap-id]');
+      scripts.forEach(script => {
+        if (script.parentNode) {
+          script.parentNode.removeChild(script);
+        }
+      });
+
+      // Cleanup mindmap instance
+      if (typeof window !== 'undefined' && window.mindMap) {
+        window.mindMap.destroy?.();
+        delete window.mindMap;
+        delete window.MindMapCore;
+        delete window.MindMapRender;
       }
     };
   }, []);
