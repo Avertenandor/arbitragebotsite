@@ -1,14 +1,35 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="512" height="512" rx="100" fill="url(#iconGradient512)"/>
   <defs>
     <linearGradient id="iconGradient512" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#9D4EDD;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#6366F1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="circleGradient512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06B6D4;stop-opacity:1" />
     </linearGradient>
   </defs>
 
-  <!-- Icon content scaled -->
-  <path d="M256,128 L128,192 L256,256 L384,192 L256,128Z" fill="white" opacity="0.9"/>
-  <path d="M128,256 L256,320 L384,256" stroke="white" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M128,320 L256,384 L384,320" stroke="white" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect width="512" height="512" rx="100" fill="url(#iconGradient512)"/>
+
+  <!-- Circular arrows (arbitrage symbol) -->
+  <g transform="translate(256, 256)">
+    <!-- Top arrow -->
+    <path d="M 0 -128 A 128 128 0 0 1 110.85 -64 L 92.2 -41 L 128 -76.8 L 117.8 -117.8 L 99.7 -94.7 A 128 128 0 0 0 0 -153.6 Z"
+          fill="#FFFFFF" opacity="0.95"/>
+
+    <!-- Right arrow -->
+    <path d="M 128 0 A 128 128 0 0 1 64 110.85 L 41 92.2 L 76.8 128 L 117.8 117.8 L 94.7 99.7 A 128 128 0 0 0 153.6 0 Z"
+          fill="#FFFFFF" opacity="0.95"/>
+
+    <!-- Left arrow -->
+    <path d="M -128 0 A 128 128 0 0 1 -64 -110.85 L -41 -92.2 L -76.8 -128 L -117.8 -117.8 L -94.7 -99.7 A 128 128 0 0 0 -153.6 0 Z"
+          fill="#FFFFFF" opacity="0.95"/>
+
+    <!-- Center circle with gradient -->
+    <circle cx="0" cy="0" r="40" fill="url(#circleGradient512)" opacity="0.9"/>
+
+    <!-- Currency symbol -->
+    <text x="0" y="18" font-size="60" font-weight="bold" text-anchor="middle" fill="#FFFFFF">₿</text>
+  </g>
 </svg>

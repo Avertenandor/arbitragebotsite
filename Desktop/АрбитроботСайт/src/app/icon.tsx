@@ -18,7 +18,7 @@ export default function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #00D9FF 0%, #9D4EDD 100%)',
+          background: 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)',
           borderRadius: '6px',
         }}
       >
@@ -29,25 +29,24 @@ export default function Icon() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
+          {/* Circular arrows */}
           <path
-            d="M16 4L4 10L16 16L28 10L16 4Z"
+            d="M16 6 A 10 10 0 0 1 24.66 11 L 23 12.5 L 26 16 L 28 10 L 26 11.5 A 10 10 0 0 0 16 4 Z"
             fill="white"
-            opacity="0.9"
+            opacity="0.95"
           />
           <path
-            d="M4 16L16 22L28 16"
-            stroke="white"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            d="M26 16 A 10 10 0 0 1 16 26 L 16 23 L 12 26 L 16 29 L 16 26.5 A 10 10 0 0 0 28 16 Z"
+            fill="white"
+            opacity="0.95"
           />
           <path
-            d="M4 22L16 28L28 22"
-            stroke="white"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            d="M6 16 A 10 10 0 0 1 16 6 L 16 9 L 20 6 L 16 3 L 16 5.5 A 10 10 0 0 0 4 16 Z"
+            fill="white"
+            opacity="0.95"
           />
+          {/* Center dot */}
+          <circle cx="16" cy="16" r="3" fill="#10B981" opacity="0.9" />
         </svg>
       </div>
     ),
