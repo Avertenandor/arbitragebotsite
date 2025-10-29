@@ -10,46 +10,19 @@ export default function MindMapPage() {
   useEffect(() => {
     setIsMounted(true);
 
-    // Load mindmap CSS
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = '/styles-mindmap.css';
-    document.head.appendChild(link);
-
-    // Load mindmap scripts in order
-    const loadScript = (src: string) => {
-      return new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = src;
-        script.async = false; // Ensure scripts load in order
-        script.onload = resolve;
-        script.onerror = reject;
-        document.body.appendChild(script);
-      });
-    };
-
-    // Load scripts sequentially
-    loadScript('/mindmap-core.js')
-      .then(() => loadScript('/mindmap-render.js'))
-      .then(() => loadScript('/mindmap.js'))
-      .then(() => {
-        // Initialize mind map after all scripts are loaded
-        if (typeof window !== 'undefined' && window.mindMap) {
-          setTimeout(() => {
-            window.mindMap.init();
-          }, 100);
-        }
-      })
-      .catch(error => {
-        console.error('Error loading mindmap scripts:', error);
-      });
-
-    // Cleanup
-    return () => {
-      if (link.parentNode) {
-        link.parentNode.removeChild(link);
+    // Initialize mind map after scripts are loaded from layout
+    const initMindMap = () => {
+      if (typeof window !== 'undefined' && window.mindMap) {
+        setTimeout(() => {
+          window.mindMap.init();
+        }, 100);
+      } else {
+        // Retry if scripts not yet loaded
+        setTimeout(initMindMap, 100);
       }
     };
+
+    initMindMap();
   }, []);
 
   if (!isMounted) {

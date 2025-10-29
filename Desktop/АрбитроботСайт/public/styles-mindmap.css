@@ -216,11 +216,31 @@
 
 /* Mind map links - Premium animations */
 .mindmap-link {
-    stroke: rgba(100, 100, 100, 0.3);
-    stroke-width: 2;
     fill: none;
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     will-change: stroke-opacity, stroke-width;
+    opacity: 0.6;
+}
+
+/* Вертикальная временная ось (жирная зеленая) */
+.mindmap-link.link-timeline-axis {
+    opacity: 0.8;
+}
+
+/* Главная связь (Месяц 3 → ARBITRAGEBOT) с свечением */
+.mindmap-link.link-main {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px #06b6d4);
+    animation: mainLinkGlow 2s ease-in-out infinite;
+}
+
+@keyframes mainLinkGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 8px #06b6d4);
+    }
+    50% {
+        filter: drop-shadow(0 0 16px #06b6d4);
+    }
 }
 
 .mindmap-link.highlighted {
@@ -228,6 +248,7 @@
     stroke-width: 3 !important;
     filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.6));
     animation: linkPulse 1.5s ease-in-out infinite;
+    opacity: 1 !important;
 }
 
 @keyframes linkPulse {
