@@ -35,7 +35,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     { href: '/', label: 'Мониторинг', icon: '📊' },
     { href: '/bot', label: 'Bot Panel', icon: '🤖' },
     { href: '/dashboard', label: 'Панель управления', icon: '👤' },
-    { href: '/mindmap', label: 'Ментальная карта', icon: '🗺️' },
+    { href: '/mindmap', label: 'Ментальная карта', icon: '🧠' },
     { href: '/about', label: 'О проекте', icon: 'ℹ️' },
     { href: '/faq', label: 'FAQ', icon: '❓' },
   ];
