@@ -107,6 +107,17 @@ export default function Header() {
               </Link>
 
               <Link
+                href="/mindmap"
+                className={`text-sm font-medium transition-colors ${
+                  isActive('/mindmap')
+                    ? 'text-[var(--primary)]'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--primary)]'
+                }`}
+              >
+                🗺️ Ментальная карта
+              </Link>
+
+              <Link
                 href="/about"
                 className={`text-sm font-medium transition-colors ${
                   isActive('/about')
