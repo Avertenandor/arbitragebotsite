@@ -114,7 +114,7 @@ export default function Header() {
                     : 'text-[var(--text-secondary)] hover:text-[var(--primary)]'
                 }`}
               >
-                🗺️ Ментальная карта
+                🧠 Ментальная карта
               </Link>
 
               <Link
