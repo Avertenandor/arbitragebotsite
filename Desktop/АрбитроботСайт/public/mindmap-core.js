@@ -1,6 +1,7 @@
 /**
  * ArbitroBot Mind Map Core Module
  * Handles: Initialization, Data Setup, Animation Loop, Transforms
+ * @version 2.0.0 - Grid Layout 5x6 (Updated: 2025-10-29)
  */
 
 class MindMapCore {
