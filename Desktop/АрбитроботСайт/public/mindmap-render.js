@@ -14,8 +14,11 @@ const MindMapRender = {
         // Render links first (so they appear behind nodes)
         core.links.forEach(link => this.renderLink(core, link));
 
-        // Render nodes
+        // Render nodes (initially hidden for animation)
         core.nodes.forEach(node => this.renderNode(core, node));
+
+        // Animate nodes after rendering
+        this.animateNodes(core);
     },
 
     /**
@@ -28,15 +31,69 @@ const MindMapRender = {
         if (!sourceNode || !targetNode) return;
 
         const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-        line.setAttribute('class', 'mindmap-link');
+
+        // Determine link type and apply appropriate styling
+        const linkType = this.getLinkType(link.source, link.target);
+        const linkClasses = ['mindmap-link', linkType.class];
+
+        line.setAttribute('class', linkClasses.join(' '));
         line.setAttribute('x1', sourceNode.x);
         line.setAttribute('y1', sourceNode.y);
         line.setAttribute('x2', targetNode.x);
         line.setAttribute('y2', targetNode.y);
         line.setAttribute('data-source', link.source);
         line.setAttribute('data-target', link.target);
+        line.setAttribute('stroke', linkType.color);
+        line.setAttribute('stroke-width', linkType.width);
 
         core.contentGroup.appendChild(line);
+    },
+
+    /**
+     * Determine link type and styling based on source/target nodes
+     */
+    getLinkType(source, target) {
+        // Вертикальная временная ось (зеленая, жирная)
+        const timelineLinks = [
+            'step3-week1_step3-week2',
+            'step3-week2_step3-week3',
+            'step3-week3_step3-week4',
+            'step3-week4_step3-week5',
+            'step3-week5_step3-month3'
+        ];
+        const linkId = `${source}_${target}`;
+
+        if (timelineLinks.includes(linkId)) {
+            return { class: 'link-timeline-axis', color: '#22c55e', width: 3 };
+        }
+
+        // Главная связь (Месяц 3 → ARBITRAGEBOT) - голубая с свечением
+        if (source === 'step3-month3' && target === 'core') {
+            return { class: 'link-main', color: '#06b6d4', width: 4 };
+        }
+
+        // Колонка 1 → Колонка 2 (синие)
+        if (source.includes('step1-') || source.includes('step2-')) {
+            return { class: 'link-requirement', color: '#3b82f6', width: 2 };
+        }
+
+        // Колонка 2 → Колонка 3 (зеленые)
+        if (source.includes('step3-') && target.includes('step4-')) {
+            return { class: 'link-timeline', color: '#10b981', width: 2 };
+        }
+
+        // Колонка 3 → Колонка 4 (красные)
+        if (source.includes('step4-') && target.includes('step5-')) {
+            return { class: 'link-rule', color: '#ef4444', width: 2 };
+        }
+
+        // Колонка 4 → Колонка 5 (оранжевые)
+        if (source.includes('step5-') && target === 'core') {
+            return { class: 'link-result', color: '#f59e0b', width: 2 };
+        }
+
+        // Остальные связи
+        return { class: 'link-default', color: 'rgba(100, 100, 100, 0.3)', width: 2 };
     },
 
     /**
@@ -65,7 +122,7 @@ const MindMapRender = {
 
         // Node icon (SVG image or text fallback)
         if (node.svgIcon) {
-            const iconSize = node.type === 'core' ? 40 : 28;
+            const iconSize = node.type === 'core' ? 60 : 28;  // 40 * 1.5 = 60 для core
             const icon = document.createElementNS('http://www.w3.org/2000/svg', 'image');
             icon.setAttribute('href', node.svgIcon);
             icon.setAttribute('x', -iconSize / 2);
@@ -81,7 +138,7 @@ const MindMapRender = {
             icon.setAttribute('text-anchor', 'middle');
             icon.setAttribute('dy', '0.35em');
             icon.setAttribute('class', 'node-icon');
-            icon.setAttribute('font-size', node.type === 'core' ? '36' : '24');
+            icon.setAttribute('font-size', node.type === 'core' ? '54' : '24');  // 36 * 1.5 = 54 для core
             icon.setAttribute('fill', '#fff');
             icon.textContent = node.icon;
             icon.setAttribute('pointer-events', 'none');
@@ -124,7 +181,67 @@ const MindMapRender = {
             }
         }, { passive: true });
 
+        // Initially hide node for animation
+        group.style.opacity = '0';
+        group.style.transform = `translate(${node.x}, ${node.y}) scale(0.5)`;
+
         core.contentGroup.appendChild(group);
+    },
+
+    /**
+     * Animate nodes sequentially by column (left to right)
+     */
+    animateNodes(core) {
+        // Define animation sequence by column
+        const animationSequence = [
+            // Колонка 1: Входные требования (синие)
+            ['step1-plex', 'step2-deposit', 'step1-rabbits', 'step2-commission'],
+
+            // Колонка 2: Временная шкала (зеленые, снизу вверх!)
+            ['step3-week1', 'step3-week2', 'step3-week3', 'step3-week4', 'step3-week5', 'step3-month3'],
+
+            // Колонка 3: Железные правила (красные)
+            ['step4-rule1', 'step4-rule2', 'step4-rule3'],
+
+            // Колонка 4: Результаты (оранжевые)
+            ['step5-profit', 'step5-growth', 'step5-total'],
+
+            // Колонка 5: Конечная цель (голубой)
+            ['core']
+        ];
+
+        animationSequence.forEach((column, colIndex) => {
+            column.forEach((nodeId, nodeIndex) => {
+                const nodeElement = core.contentGroup.querySelector(`[data-node-id="${nodeId}"]`);
+                if (!nodeElement) return;
+
+                const node = core.nodes.find(n => n.id === nodeId);
+                if (!node) return;
+
+                // Calculate delay: column delay + node delay within column
+                const delay = (colIndex * 600) + (nodeIndex * 150);
+
+                setTimeout(() => {
+                    nodeElement.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    nodeElement.style.opacity = '1';
+                    nodeElement.style.transform = `translate(${node.x}, ${node.y}) scale(1)`;
+                }, delay);
+            });
+        });
+
+        // Calculate total animation time and show links after
+        const totalDelay = animationSequence.length * 600;
+        setTimeout(() => {
+            // Animate links appearance
+            const links = core.contentGroup.querySelectorAll('.mindmap-link');
+            links.forEach((link, index) => {
+                link.style.opacity = '0';
+                setTimeout(() => {
+                    link.style.transition = 'opacity 0.5s ease';
+                    link.style.opacity = '';
+                }, index * 30);
+            });
+        }, totalDelay);
     },
 
     /**
@@ -132,7 +249,7 @@ const MindMapRender = {
      */
     getNodeRadius(type) {
         const radii = {
-            core: 50,
+            core: 75,        // 50 * 1.5 = 75 (ARBITRAGEBOT в 1.5 раза больше)
             requirement: 38,
             timeline: 35,
             rule: 35,
